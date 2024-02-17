@@ -16,7 +16,6 @@ security:
         main:
             lazy: true
             provider: app_user_provider
-<<<<<<< HEAD
             custom_authenticator: App\Security\AppAuthAuthenticator
             logout:
                 path: app_logout
@@ -28,13 +27,6 @@ security:
                 lifetime: 604800
                 path: /
                 always_remember_me: true
-=======
-            
-                # where to redirect after logout
-                # target: app_any_route
-
-            
->>>>>>> 5dc6affd0324d2558d4e05f2753f22ecfb8d0fb4
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

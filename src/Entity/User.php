@@ -6,7 +6,6 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-<<<<<<< HEAD
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -15,12 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-=======
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
-
-#[ORM\Entity(repositoryClass: UserRepository::class)]
->>>>>>> 5dc6affd0324d2558d4e05f2753f22ecfb8d0fb4
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -29,10 +22,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
-<<<<<<< HEAD
     #[Assert\Email(message:"Your email {{ value }}not valide")]
-=======
->>>>>>> 5dc6affd0324d2558d4e05f2753f22ecfb8d0fb4
     private ?string $email = null;
 
     #[ORM\Column]
@@ -74,12 +64,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Cadeaux::class, mappedBy: 'idUser')]
     private Collection $cadeauxes;
 
-<<<<<<< HEAD
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
-=======
->>>>>>> 5dc6affd0324d2558d4e05f2753f22ecfb8d0fb4
     public function __construct()
     {
         $this->produits = new ArrayCollection();
@@ -368,7 +355,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-<<<<<<< HEAD
 
     public function isVerified(): bool
     {
@@ -382,6 +368,3 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 }
-=======
-}
->>>>>>> 5dc6affd0324d2558d4e05f2753f22ecfb8d0fb4
