@@ -6,11 +6,20 @@
             <h1 class="title">Ajouter une nouvelle catégorie</h1>
         </div>
         <div class="card-body">
-            {{ form_start(form) }}
+            {% for flashMessage in app.flashes('error') %}
+                <div class="alert alert-danger" role="alert">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+
+            {{ form_start(form, {'attr':{'novalidate':'novalidate'}}) }}
             
             <div class="form-group mb-3">
                 {{ form_label(form.categorie_prod, 'Nom du catégorie :', {'label_attr': {'class': 'titlep'}}) }}
                 {{ form_widget(form.categorie_prod, {'attr': {'class': 'form-control'}}) }}
+                <div style="color: red;">
+                    {{ form_errors(form.categorie_prod) }}
+                </div>
             </div>
 
             <button type="submit" class="btn btn-success mb-0.9">Enregistrer</button>

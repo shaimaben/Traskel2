@@ -6,6 +6,7 @@ use App\Repository\CategorieProdRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CategorieProdRepository::class)]
 class CategorieProd
@@ -16,6 +17,8 @@ class CategorieProd
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min: 4, minMessage: "Le nom de la catégorie doit comporter au moins 4 caractères")]
+    #[Assert\NotBlank(message: "Vous devez entrer un nom de catégorie !")]
     private ?string $categorie_prod = null;
 
     #[ORM\OneToMany(targetEntity: Produit::class, mappedBy: 'idCat')]

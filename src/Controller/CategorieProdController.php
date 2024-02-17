@@ -23,13 +23,21 @@ class CategorieProdController extends AbstractController
     }
 
     #[Route('/new', name: 'app_categorie_prod_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, CategorieProdRepository $categorieProdRepository): Response
     {
         $categorieProd = new CategorieProd();
         $form = $this->createForm(CategorieProdType::class, $categorieProd);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Vérifier si un nom de catégorie similaire existe déjà
+            $existingCategorie = $categorieProdRepository->findOneBy(['categorie_prod' => $categorieProd->getCategorieProd()]);
+
+            if ($existingCategorie) {
+                $this->addFlash('error', 'Le nom de catégorie existe déjà.');
+                return $this->redirectToRoute('app_categorie_prod_new');
+            }
+
             $entityManager->persist($categorieProd);
             $entityManager->flush();
 
