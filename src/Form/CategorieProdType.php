@@ -12,7 +12,9 @@ class CategorieProdType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('categorie_prod')
+        ->add('categorie_prod', null, [
+            'label' => 'Nom du Catégorie :',
+        ])
         ;
     }
 
