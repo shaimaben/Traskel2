@@ -21,6 +21,11 @@ class ProduitsController extends AbstractController
             'produits' => $produitRepository->findAll(),
         ]);
     }
+     #[Route('/AjoutDon', name: 'app_produit_ajoutDon', methods: ['GET'])]
+    public function AjoutDon(): Response
+    {
+        return $this->render('produits/AjoutDon.html.twig');
+    }
 
     #[Route('/new', name: 'app_produits_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
