@@ -3,9 +3,10 @@
 {% block title %}Log in!{% endblock %}
 
 {% block content %}
-  <div class="container mt-4">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
+  <div class="container-fluid h-100" style="padding-top: 50px; padding-bottom: 50px;">
+    <div class="row h-100 align-items-center">
+      <!-- Login Form Section -->
+      <div class="col-md-6 login-form-section" style="background-color: #37525d; padding: 50px;">
         <form method="post" class="form-signin">
           {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -17,21 +18,28 @@
             </div>
           {% endif %}
 
-          <h1 class="h3 mb-3 font-weight-normal text-center">Please sign in</h1>
-          
-          <label for="inputEmail" class="sr-only">Email</label>
-          <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control mb-2" autocomplete="email" required autofocus>
+          <h1 class="h3 mb-5 font-weight-normal text-center" style="color: #e2eee6;">Welcome Back to Traskel !</h1>
 
-          <label for="inputPassword" class="sr-only">Password</label>
-          <input type="password" name="password" id="inputPassword" class="form-control mb-3" autocomplete="current-password" required>
+          <div class="form-group" style="padding: 0 20px;">
+            <label for="inputEmail" class="sr-only">Email</label>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control form-control-lg mb-3" style="background-color: #e2eee6; color: #114727;" autocomplete="email" required autofocus>
+          </div>
+
+          <div class="form-group" style="padding: 0 20px;">
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" name="password" id="inputPassword" class="form-control form-control-lg mb-3" style="background-color: #e2eee6; color: #114727;" autocomplete="current-password" required>
+          </div>
 
           <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        </form>
+<button class="btn btn-lg btn-success btn-block mx-auto" type="submit" style="background-color: #1a6212 ;">Sign in</button>
 
-        <p class="mt-3 text-center">Don't have an account? <a href="{{ path('app_register') }}">Click here to register</a></p>
+          <p class="text-center mt-5" style="color: #e2eee6;">Don't have an account? <a href="{{ path('app_register') }}" class="text-decoration-none" style="color: #e2eee6; margin-top: 10px; display: inline-block; transition: color 0.2s ease;">Click here to register</a></p>
+        </form>
       </div>
-    </div>
-  </div>
-{% endblock %}
+
+      <!-- Welcome Section with Background Image -->
+      <div class="col-md-6 welcome-section" style="background: url('/img.jpg') center/cover; color: #e2eee6; padding: 50px; min-height: 78vh;">
+        
+        
+        {%endblock%}
