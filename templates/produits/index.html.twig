@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit index{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1 class="mb-4">Liste des Produits</h1>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom du Produit</th>
+                    <th>Description</th>
+                    <th>Photo</th>
+                    <th>Type</th>
+                    <th>Prix</th>
+                    <th>Catégorie</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produit in produits %}
+                    <tr>
+                        <td>{{ produit.id }}</td>
+                        <td>{{ produit.nomProd }}</td>
+                        <td>{{ produit.descrpProd }}</td>
+                        <td><img src="{{ asset('uploads/' ~ produit.photoProd) }}" style="max-width: 100px; height: auto;" alt="Product Image"></td>
+                        <td>{{ produit.typeProd ? 'Vente' : 'Don' }}</td>
+                        <td>{{ produit.prixProd }}</td>
+                        <td>{{ produit.idCat ? produit.idCat.categorieProd : 'N/A' }}</td>
+                        <td>
+                            <a href="{{ path('app_produits_show', {'id': produit.id}) }}" class="btn btn-info btn-sm">Voir</a>
+                            <a href="{{ path('app_produits_edit', {'id': produit.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="8">Aucun produit trouvé</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_produits_new') }}" class="btn btn-primary mt-3">Ajouter un Produit</a>
+    </div>
+{% endblock %}
