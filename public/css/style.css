@@ -256,7 +256,17 @@ a {
 
 .section-title {
   color: #2f2f2f; }
+  .img-fluid {
+    max-width: 100%;
+    height: auto;
+}
 
+/* Pour les miniatures de produits */
+.product-thumbnail {
+    /* Ajoutez vos styles spécifiques ici */
+    /* Par exemple, une ombre */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 .product-section {
   padding: 7rem 0; }
   .product-section .product-item {

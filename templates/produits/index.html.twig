@@ -1,46 +1,30 @@
-{% extends 'base.html.twig' %}
+{% extends 'gestionProd/services.html.twig' %}
 
-{% block title %}Produit index{% endblock %}
+
 
 {% block content %}
-    <div class="container mt-4">
+    <div class="untree_co-section product-section before-footer-section">
         <h1 class="mb-4">Liste des Produits</h1>
 
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nom du Produit</th>
-                    <th>Description</th>
-                    <th>Photo</th>
-                    <th>Type</th>
-                    <th>Prix</th>
-                    <th>Catégorie</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for produit in produits %}
-                    <tr>
-                        <td>{{ produit.id }}</td>
-                        <td>{{ produit.nomProd }}</td>
-                        <td>{{ produit.descrpProd }}</td>
-                        <td><img src="{{ asset('uploads/' ~ produit.photoProd) }}" style="max-width: 100px; height: auto;" alt="Product Image"></td>
-                        <td>{{ produit.typeProd ? 'Vente' : 'Don' }}</td>
-                        <td>{{ produit.prixProd }}</td>
-                        <td>{{ produit.idCat ? produit.idCat.categorieProd : 'N/A' }}</td>
-                        <td>
-                            <a href="{{ path('app_produits_show', {'id': produit.id}) }}" class="btn btn-info btn-sm">Voir</a>
-                            <a href="{{ path('app_produits_edit', {'id': produit.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
-                        </td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="8">Aucun produit trouvé</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="row">
+            {% for produit in produits %}
+                <div class="col-12 col-md-4 col-lg-3 mb-5">
+                    <a class="product-item" href="{{ path('app_produits_show', {'id': produit.id}) }}">
+                        <img src="{{ asset('uploads/' ~ produit.photoProd) }}" class="img-fluid product-thumbnail" alt="Product Image">
+                        <h3 class="product-title">{{ produit.nomProd }}</h3>
+                        <strong class="product-price">{{ produit.prixProd }}</strong>
+
+                        <span class="icon-cross">
+                            <img src="images/cross.svg" class="img-fluid">
+                        </span>
+                    </a>
+                </div>
+            {% else %}
+                <div class="col">
+                    <p>Aucun produit trouvé</p>
+                </div>
+            {% endfor %}
+        </div>
 
         <a href="{{ path('app_produits_new') }}" class="btn btn-primary mt-3">Ajouter un Produit</a>
     </div>
