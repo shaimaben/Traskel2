@@ -1,45 +1,62 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Register{% endblock %}
 
 {% block content %}
   <div class="container-fluid h-100" style="padding-top: 50px; padding-bottom: 50px;">
     <div class="row h-100 align-items-center">
-      <!-- Login Form Section -->
-      <div class="col-md-6 login-form-section" style="background-color: #37525d; padding: 50px;">
-        <form method="post" class="form-signin">
-          {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-          {% endif %}
+      <!-- Registration Form Section -->
+      <div class="col-md-6 registration-form-section" style="background-color: #37525d; padding: 50px;">
+        {% for flash_error in app.flashes('verify_email_error') %}
+          <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        {% endfor %}
 
-          {% if app.user %}
-            <div class="mb-3">
-              You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-            </div>
-          {% endif %}
+        <h1 class="text-center mb-4" style="color: #e2eee6;">Register</h1>
 
-          <h1 class="h3 mb-5 font-weight-normal text-center" style="color: #e2eee6;">Welcome Back to Traskel !</h1>
+        {{ form_errors(registrationForm) }}
 
-          <div class="form-group" style="padding: 0 20px;">
-            <label for="inputEmail" class="sr-only">Email</label>
-            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control form-control-lg mb-3" style="background-color: #e2eee6; color: #114727;" autocomplete="email" required autofocus>
+        {{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
+          <div class="form-group">
+            {{ form_row(registrationForm.email, { 'attr': {'class': 'form-control form-control-lg', 'placeholder': 'Email'} }) }}
           </div>
 
-          <div class="form-group" style="padding: 0 20px;">
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" name="password" id="inputPassword" class="form-control form-control-lg mb-3" style="background-color: #e2eee6; color: #114727;" autocomplete="current-password" required>
+          <div class="form-group">
+            {{ form_row(registrationForm.nom_user, { 'label': 'Nom', 'attr': {'class': 'form-control form-control-lg', 'placeholder': 'Nom'} }) }}
           </div>
 
-          <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+          <div class="form-group">
+            {{ form_row(registrationForm.prenom_user, { 'label': 'Prénom', 'attr': {'class': 'form-control form-control-lg', 'placeholder': 'Prénom'} }) }}
+          </div>
 
-<button class="btn btn-lg btn-success btn-block mx-auto" type="submit" style="background-color: #1a6212 ;">Sign in</button>
+          <div class="form-group">
+            {{ form_row(registrationForm.adresse_user, { 'label': 'Adresse', 'attr': {'class': 'form-control form-control-lg', 'placeholder': 'Adresse'} }) }}
+          </div>
 
-          <p class="text-center mt-5" style="color: #e2eee6;">Don't have an account? <a href="{{ path('app_register') }}" class="text-decoration-none" style="color: #e2eee6; margin-top: 10px; display: inline-block; transition: color 0.2s ease;">Click here to register</a></p>
-        </form>
+          <div class="form-group">
+            {{ form_row(registrationForm.tel_user, { 'label': 'Téléphone', 'attr': {'class': 'form-control form-control-lg', 'placeholder': 'Téléphone'} }) }}
+          </div>
+
+          <div class="form-group">
+            {{ form_row(registrationForm.plainPassword, {
+              'label': 'Password',
+              'attr': {'class': 'form-control form-control-lg', 'placeholder': 'Password'}
+            }) }}
+          </div>
+
+          <div class="form-check mb-3">
+            {{ form_row(registrationForm.agreeTerms, {'label_attr': {'class': 'form-check-label'}, 'attr': {'class': 'form-check-input'}}) }}
+            {{ form_label(registrationForm.agreeTerms, 'I agree to the terms', {'label_attr': {'class': 'form-check-label'}}) }}
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block" style="background-color: #1a6212;">Register</button>
+        {{ form_end(registrationForm) }}
+
+        <p class="mt-3 text-center" style="color: #e2eee6;">Already have an account? <a href="{{ path('app_login') }}" style="color: #e2eee6;">Click here to login</a></p>
       </div>
 
       <!-- Welcome Section with Background Image -->
       <div class="col-md-6 welcome-section" style="background: url('/img.jpg') center/cover; color: #e2eee6; padding: 50px; min-height: 78vh;">
-        
-        
-        {%endblock%}
+      </div>
+    </div>
+  </div>
+{% endblock %}
