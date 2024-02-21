@@ -1,13 +1,34 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Edit Produit{% endblock %}
+{% extends 'gestionProd/base.html.twig' %}
 
 {% block content %}
-    <h1>Edit Produit</h1>
+    <div class="container mt-4">
+        <div class="card mx-auto" style="width: 50%;">
+            <div class="card-header">
+                <h1 class="title">Modifier le produit : {{ produit.nomProd }}</h1>
+            </div>
+            <div class="card-body">
+                {{ form_start(form) }}
+                
+                <div class="form-group mb-3">
+                    {{ form_label(form.nomProd, 'Nom du produit :', {'label_attr': {'class': 'titlep'}}) }}
+                    {{ form_widget(form.nomProd, {'attr': {'class': 'form-control'}}) }}
+                </div>
 
-    {{ include('produits/_form.html.twig', {'button_label': 'Update'}) }}
+                <div class="mb-3">
+                    {{ form_label(form.prixProd, 'Prix du produit :', {'label_attr': {'class': 'titlep'}}) }}
+                    {{ form_widget(form.prixProd, {'attr': {'class': 'form-control'}}) }}
+                </div>
 
-    <a href="{{ path('app_produits_index') }}">back to list</a>
+                <!-- Ajoutez les autres champs du formulaire -->
 
-    {{ include('produits/_delete_form.html.twig') }}
+                <button type="submit" class="btn btn-success mb-0.9">Mettre à jour</button>
+                {{ form_end(form) }}
+
+                <div class="d-flex mt-3">
+                    {{ include('produits/_delete_form.html.twig') }}
+                    <a href="{{ path('app_produits_index') }}" class="btn btn-secondary custom-margin-between-buttons">Retour à la liste</a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

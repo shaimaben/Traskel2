@@ -23,7 +23,7 @@ class Produit
     private ?string $photoProd = null;
 
     #[ORM\Column]
-    private ?bool $typeProd = null;
+    private ?string $typeProd = null;
 
     #[ORM\Column]
     private ?float $prixProd = null;
@@ -78,12 +78,12 @@ class Produit
         return $this;
     }
 
-    public function isTypeProd(): ?bool
+    public function getTypeProd(): ?string
     {
         return $this->typeProd;
     }
 
-    public function setTypeProd(bool $typeProd): static
+    public function setTypeProd(string $typeProd): static
     {
         $this->typeProd = $typeProd;
 

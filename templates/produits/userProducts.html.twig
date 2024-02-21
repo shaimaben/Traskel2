@@ -14,9 +14,9 @@
                             <h3 class="product-title">{{ produit.nomProd }}</h3>
                             <strong class="product-price">{{ produit.prixProd }} DTN</strong>
                         </a>
-                        <div class="product-buttons">
-                            <a href="{{ path('app_produits_edit', {'id': produit.id}) }}" class="btn btn-primary">Modifier</a>
-                            <a href="#" class="btn btn-secondary">Supprimer</a>
+                         <div class="product-buttons d-flex justify-content-center">
+                            <a href="{{ path('app_produits_edit', {'id': produit.id}) }}" class="btn btn-secondary">Modifier</a>
+                            {{ include('produits/_delete_form.html.twig', {'id': produit.id}) }}
                         </div>
                     </div>
                 </div>
@@ -40,9 +40,9 @@
                             <h3 class="product-title">{{ produit.nomProd }}</h3>
                             <strong class="product-price">{{ produit.prixProd }} DTN</strong>
                         </a>
-                        <div class="product-buttons">
-                            <a href="{{ path('app_produits_edit', {'id': produit.id}) }}" class="btn btn-primary">Modifier</a>
-                            <a href="#" class="btn btn-secondary">Supprimer</a>
+                          <div class="product-buttons d-flex justify-content-center">
+                            <a href="{{ path('app_produits_edit', {'id': produit.id}) }}" class="btn btn-secondary">Modifier</a>
+                            {{ include('produits/_delete_form.html.twig', {'id': produit.id}) }}
                         </div>
                     </div>
                 </div>

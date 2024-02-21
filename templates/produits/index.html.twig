@@ -9,6 +9,7 @@
 
         <div class="row">
             {% for produit in produits %}
+             {% if produit.typeProd == 'Vente' %}
                 <div class="col-12 col-md-4 col-lg-3 mb-5">
                     <a class="product-item" href="{{ path('app_produits_show', {'id': produit.id}) }}">
                        <img src="{{ asset('uploads/' ~ produit.photoProd) }}" class="img-fluid" alt="Product Image" style="width:250px; height: 200px;">
@@ -21,6 +22,7 @@
                         </span>
                     </a>
                 </div>
+                {% endif %}
             {% else %}
                 <div class="col">
                     <p>Aucun produit trouvé</p>
@@ -28,5 +30,6 @@
             {% endfor %}
         </div>
 
+        
     </div>
 {% endblock %}

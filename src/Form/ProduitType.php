@@ -24,12 +24,13 @@ class ProduitType extends AbstractType
             ->add('photoProd', FileType::class, [
                 'label' => 'Télécharger une photo',
                 'mapped' => false, // This is important to prevent saving the file path to the database
-                'required' => false, // Not required since it's an upload
+                'required' => false, 
+                'data' => $options['current_photo'],
             ])
             ->add('typeProd', ChoiceType::class, [
                 'choices' => [
-                    'Don' => 'don',
-                    'Vente' => 'vente',
+                    'Don' => 'Don',
+                    'Vente' => 'Vente',
                 ],
                 'label' => 'Type de produit',
                 'expanded' => false,
@@ -49,6 +50,7 @@ class ProduitType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Produit::class,
+            'current_photo' => null,
         ]);
     }
 }

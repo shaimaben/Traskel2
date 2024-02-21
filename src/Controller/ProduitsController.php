@@ -34,7 +34,7 @@ class ProduitsController extends AbstractController
     }
 
     #[Route('/userProducts', name: 'app_produits_userProducts', methods: ['GET'])]
-    public function userProducts(ProduitRepository $produitRepository): Response
+    public function userProduct(ProduitRepository $produitRepository): Response
     {
         return $this->render('produits/userProducts.html.twig', [
             'produits' => $produitRepository->findAll(),
