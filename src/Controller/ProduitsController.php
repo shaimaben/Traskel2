@@ -27,6 +27,9 @@ class ProduitsController extends AbstractController
         return $this->render('produits/AjoutDon.html.twig');
     }
 
+
+
+
     #[Route('/thanks', name: 'app_produit_thanks', methods: ['GET'])]
     public function Thanks(): Response
     {

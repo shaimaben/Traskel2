@@ -36,13 +36,15 @@ class ProduitType extends AbstractType
                 'expanded' => false,
                 'multiple' => false,
             ])
-            ->add('prixProd')
+            ->add('prixProd', null, [
+                'data' => 0,
+            ])
             ->add('idCat', EntityType::class, [
                 'class' => CategorieProd::class,
                 'choice_label' => 'CategorieProd', 
             ])
             
-            ->add('save', SubmitType::class)
+         
         ;
     }
 

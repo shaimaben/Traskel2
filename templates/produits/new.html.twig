@@ -1,4 +1,4 @@
-{% extends 'gestionProd/base.html.twig' %}
+ {% extends 'gestionProd/base.html.twig' %}
 
 {% block content %}
    <div class="container mt-4">
@@ -7,7 +7,7 @@
             <h1 class="card-title text-center" style="color: #09563c; text-transform: uppercase;">Ajouter Votre produit</h1>
             <hr style="border-color: #09563c;">
             
-            {{ form_start(f) }}
+            {{ form_start(f, {'attr':{'novalidate':'novalidate'}}) }}
             <table>
                 <tr>
                     <td class="titlep">{{ form_label(f.nomProd, "Nom de déchets") }}</td>
@@ -33,13 +33,17 @@
                     <td class="titlep">{{ form_label(f.idCat, "Catégorie du produit") }}</td>
                     <td>{{ form_widget(f.idCat, {'attr': {'class': 'form-control'}}) }}</td>
                 </tr>
+                <tr>
+                <td>  <button type="submit" class="btn btn-success mb-0.9"style="margin-top: 14px">Enregistrer</button></td>
+                <div style="width: 10px;"></div>
+                 <td><a href="{{ path('app_produits_index') }}" class="btn btn-secondary mt-3">Retour à la liste</a></td>
+                 </tr>
             </table>
+            
             {{ form_end(f) }}
             
-            <a href="{{ path('app_produits_index') }}" class="btn btn-secondary mt-3">Retour à la liste</a>
         </div>
     </div>
 </div>
-
 
 {% endblock %}
