@@ -1,44 +1,32 @@
-{% extends 'base.html.twig' %}
+{% extends 'gestionProd/base.html.twig' %}
 
 {% block title %}Produit{% endblock %}
 
 {% block content %}
+    <div class="container mt-4">
+        <div class="card mx-auto" style="width: 70%;">
+            <div class="card-body">
+                
 
-    <h1>Produit</h1>
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="{{ asset('uploads/' ~ produit.photoProd) }}" class="img-fluid" alt="{{ produit.nomProd }}" style="max-width:400px; height:450px;">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="pl-md-4"> <!-- Ajout d'une marge à gauche pour la séparation -->
+                            <h2 class="font-weight-bold">{{ produit.nomProd }}</h2>
+                            <hr> <!-- Ligne de séparation -->
+                            <p>{{ produit.descrpProd }}</p>
+                            <p><strong>Prix :</strong> {{ produit.prixProd }} DTN</p>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ produit.id }}</td>
-            </tr>
-            <tr>
-                <th>NomProd</th>
-                <td>{{ produit.nomProd }}</td>
-            </tr>
-            <tr>
-                <th>DescrpProd</th>
-                <td>{{ produit.descrpProd }}</td>
-            </tr>
-            <tr>
-                <th>TypeProd</th>
-                <td>{{ produit.photoProd }}</td>
-            </tr>
-<tr>
-    <th>TypeProd</th>
-    <td><img src="{{ asset('uploads/' ~ produit.photoProd) }}" style="width: 50%; height: auto;"></td>
-</tr>
-
-            <tr>
-                <th>PrixProd</th>
-                <td>{{ produit.prixProd }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_produits_index') }}">back to list</a>
-
-    <a href="{{ path('app_produits_edit', {'id': produit.id}) }}">edit</a>
-
-    {{ include('produits/_delete_form.html.twig') }}
+                            <div class="mt-4">
+                                <button class="btn btn-primary">Ajouter au Panier</button>
+                                <a href="{{ path('app_produits_index') }}" class="btn btn-secondary">Retour à la liste</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

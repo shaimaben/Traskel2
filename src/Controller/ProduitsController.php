@@ -27,6 +27,21 @@ class ProduitsController extends AbstractController
         return $this->render('produits/AjoutDon.html.twig');
     }
 
+    #[Route('/thanks', name: 'app_produit_thanks', methods: ['GET'])]
+    public function Thanks(): Response
+    {
+        return $this->render('produits/Thanks.html.twig');
+    }
+
+    #[Route('/userProducts', name: 'app_produits_userProducts', methods: ['GET'])]
+    public function userProducts(ProduitRepository $produitRepository): Response
+    {
+        return $this->render('produits/userProducts.html.twig', [
+            'produits' => $produitRepository->findAll(),
+        ]);
+    }
+
+
     #[Route('/new', name: 'app_produits_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -44,7 +59,7 @@ class ProduitsController extends AbstractController
             $entityManager->persist($produit);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_produits_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_produit_thanks', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('produits/new.html.twig', [
@@ -60,6 +75,8 @@ class ProduitsController extends AbstractController
             'produit' => $produit,
         ]);
     }
+
+    
 
     #[Route('/{id}/edit', name: 'app_produits_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response

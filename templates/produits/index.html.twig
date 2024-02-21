@@ -1,21 +1,23 @@
-{% extends 'gestionProd/services.html.twig' %}
+{% extends 'gestionProd/shop.html.twig' %}
 
 
 
 {% block content %}
     <div class="untree_co-section product-section before-footer-section">
-        <h1 class="mb-4">Liste des Produits</h1>
+       <h1 style="color: #09563c; font-style: italic; margin-left: 20px;">Liste des Produits :</h1>
+
 
         <div class="row">
             {% for produit in produits %}
                 <div class="col-12 col-md-4 col-lg-3 mb-5">
                     <a class="product-item" href="{{ path('app_produits_show', {'id': produit.id}) }}">
-                        <img src="{{ asset('uploads/' ~ produit.photoProd) }}" class="img-fluid product-thumbnail" alt="Product Image">
+                       <img src="{{ asset('uploads/' ~ produit.photoProd) }}" class="img-fluid" alt="Product Image" style="width:250px; height: 200px;">
+
                         <h3 class="product-title">{{ produit.nomProd }}</h3>
-                        <strong class="product-price">{{ produit.prixProd }}</strong>
+                       <strong class="product-price">{{ produit.prixProd }} DTN</strong>
 
                         <span class="icon-cross">
-                            <img src="images/cross.svg" class="img-fluid">
+                            <img src="{{ asset('images/cross.svg') }}" class="img-fluid ">
                         </span>
                     </a>
                 </div>
@@ -26,6 +28,5 @@
             {% endfor %}
         </div>
 
-        <a href="{{ path('app_produits_new') }}" class="btn btn-primary mt-3">Ajouter un Produit</a>
     </div>
 {% endblock %}
