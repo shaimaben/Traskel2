@@ -19,14 +19,36 @@
                     {{ form_widget(form.prixProd, {'attr': {'class': 'form-control'}}) }}
                 </div>
 
-                <!-- Ajoutez les autres champs du formulaire -->
+                <div class="mb-3">
+                    {{ form_label(form.typeProd, 'Type du produit :', {'label_attr': {'class': 'titlep'}}) }}
+                    {{ form_widget(form.typeProd, {'attr': {'class': 'form-control'}}) }}
+                </div>
 
+                <div class="mb-3">
+                    {{ form_label(form.photoProd, 'Photo du produit :', {'label_attr': {'class': 'titlep'}}) }}
+                    {{ form_widget(form.photoProd, {'attr': {'class': 'form-control'}}) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.idCat, 'Catégorie du produit :', {'label_attr': {'class': 'titlep'}}) }}
+                    {{ form_widget(form.idCat, {'attr': {'class': 'form-control'}}) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.descrpProd, 'Description du produit :', {'label_attr': {'class': 'titlep'}}) }}
+                    {{ form_widget(form.descrpProd, {'attr': {'class': 'form-control'}}) }}
+                </div>
+
+                
+
+
+                <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-success mb-0.9">Mettre à jour</button>
-                {{ form_end(form) }}
-
-                <div class="d-flex mt-3">
+                <div style="width: 10px;"></div>
+                {{ form_end(form, {'render_rest': false}) }}
                     {{ include('produits/_delete_form.html.twig') }}
-                    <a href="{{ path('app_produits_index') }}" class="btn btn-secondary custom-margin-between-buttons">Retour à la liste</a>
+                    <div style="width: 10px;"></div>
+                    <a href="{{ path('app_produits_index') }}" class="btn btn-secondary ml-6">Retour à la liste</a>
                 </div>
             </div>
         </div>
