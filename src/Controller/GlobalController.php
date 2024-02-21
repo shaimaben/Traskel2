@@ -13,17 +13,24 @@ class GlobalController extends AbstractController
 
     public function index(): Response
     {
-		$this->denyAccessUnlessGranted("IS_AUTHENTICATED_FULLY");
+        $this->denyAccessUnlessGranted("IS_AUTHENTICATED_FULLY");
 
-		/** @var User $user */
-		$user = $this->getUser();
+        /** @var User $user */
+        $user = $this->getUser();
+        $roles = $user->getRoles();
 
-		return match ($user->isVerified()) {
-			false=> $this->render("global/index.html.twig"),
-			//false => $this->render("global/please-verify-email.html.twig"),
-		};
-
-
+        // Check if the user has both "ROLE_ADMIN" and "ROLE_USER"
+        if (in_array('ROLE_ADMIN', $roles) && in_array('ROLE_USER', $roles)) {
+            // Redirect to UserController
+            return $this->redirectToRoute('app_user_index'); // Replace 'user_controller_route' with the actual route for your UserController
+        } else {
+            return match ($user->isVerified()) {
+                false => $this->render("global/index.html.twig"),
+                //false => $this->render("global/please-verify-email.html.twig"),
+            };
+        }
+    }
+}
         
    /* 
     public function index(): Response
@@ -34,11 +41,7 @@ class GlobalController extends AbstractController
         
 
         
-    }
+    
 
-    #[Route('/Admin', name: 'app_Admin')]
-        function indextest(): Response
-        {
-            return $this->render('Admin/indextest.html.twig');
-        }
-}
+  
+

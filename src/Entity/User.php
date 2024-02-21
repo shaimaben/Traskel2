@@ -151,6 +151,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->nom_user;
     }
 
+
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
+
+
+
+
     public function setNomUser(string $nom_user): static
     {
         $this->nom_user = $nom_user;

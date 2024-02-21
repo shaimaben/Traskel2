@@ -1,0 +1,51 @@
+{% extends 'baseback1.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+    <h1>User index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Password</th>
+                <th>Nom_user</th>
+                <th>Prenom_user</th>
+                <th>Adresse_user</th>
+                <th>Tel_user</th>
+                <th>Points_user</th>
+                <th>IsVerified</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td>{{ user.password }}</td>
+                <td>{{ user.nomUser }}</td>
+                <td>{{ user.prenomUser }}</td>
+                <td>{{ user.adresseUser }}</td>
+                <td>{{ user.telUser }}</td>
+                <td>{{ user.pointsUser }}</td>
+                <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_user_new') }}">Create new</a>
+{% endblock %}
