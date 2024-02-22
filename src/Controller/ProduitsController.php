@@ -27,6 +27,14 @@ class ProduitsController extends AbstractController
         return $this->render('produits/AjoutDon.html.twig');
     }
 
+    #[Route('/ProduitAdmin', name: 'app_produit_produitAdmin', methods: ['GET'])]
+    public function ProduitAdmin(ProduitRepository $produitRepository): Response
+    {
+        return $this->render('produits/produitAdmin.html.twig', [
+            'produits' => $produitRepository->findAll(),
+        ]);
+    }
+
 
 
 
@@ -72,12 +80,23 @@ class ProduitsController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_produits_show', methods: ['GET'])]
-    public function show(Produit $produit): Response
+    public function show(Produit $produit, Request $request): Response
     {
-        return $this->render('produits/show.html.twig', [
-            'produit' => $produit,
-        ]);
+        $referer = $request->headers->get('referer');
+    
+        if (strpos($referer, '/produits/ProduitAdmin') !== false) {
+            return $this->render('produits/ShowProduitAdmin.html.twig', [
+                'produit' => $produit,
+            ]);
+        } else {
+            return $this->render('produits/show.html.twig', [
+                'produit' => $produit,
+            ]);
+        }
     }
+    
+
+  
 
     
 
@@ -102,11 +121,18 @@ class ProduitsController extends AbstractController
     #[Route('/{id}', name: 'app_produits_delete', methods: ['POST'])]
     public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
     {
+        $referer = $request->headers->get('referer');
+
         if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->request->get('_token'))) {
             $entityManager->remove($produit);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_produits_index', [], Response::HTTP_SEE_OTHER);
+        if (strpos($referer, '/produits/ProduitAdmin') !== false) {
+            return $this->redirectToRoute('app_produit_produitAdmin', [], Response::HTTP_SEE_OTHER);
+        } else {
+            return $this->redirectToRoute('app_produits_index', [], Response::HTTP_SEE_OTHER);
+        }
     }
+    
 }

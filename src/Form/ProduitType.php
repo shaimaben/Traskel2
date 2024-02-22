@@ -43,6 +43,7 @@ class ProduitType extends AbstractType
                 'class' => CategorieProd::class,
                 'choice_label' => 'CategorieProd', 
             ])
+           
             
          
         ;

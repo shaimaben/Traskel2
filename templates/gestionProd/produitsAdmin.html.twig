@@ -276,19 +276,27 @@
             <!-- ======= Sidebar ======= -->
             <aside id="sidebar" class="sidebar">
 
-                <ul class="sidebar-nav" id="sidebar-nav">
+               <ul class="sidebar-nav" id="sidebar-nav">
 
-                    <li class="nav-item">
-                        <a class="nav-link " href="{{ path('app_categorie_prod_index') }}">
-                            <i class="bi bi-grid"></i>
-                            <span>Gestion des Catégories</span>
-                        </a>
-                    </li><!-- End Dashboard Nav -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_categorie_prod_index') }}">
+            <i class="bi bi-grid"></i>
+            <span>Gestion des Catégories</span>
+        </a>
+    </li><!-- End Dashboard Nav -->
 
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="{{ path('app_produit_produitAdmin') }}">
-                            <i class="bi bi-menu-button-wide"></i><span>Gestion des proudits</span><i class="bi bi-chevron-down ms-auto"></i>
-                        </a>
+    <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="{{ path('app_produit_produitAdmin') }}">
+            <i class="bi bi-menu-button-wide"></i><span>Gestion des produits</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <!-- Add links for managing products here -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_produit_produitAdmin') }}">
+                    <i class="bi bi-box"></i>
+                    <span>Liste des Produits</span>
+                </a>
+           
                         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                             
                           

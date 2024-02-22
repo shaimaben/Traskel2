@@ -1,0 +1,57 @@
+{% extends 'gestionProd/produitsAdmin.html.twig' %}
+
+{% block body %}
+
+    <div class="untree_co-section product-section before-footer-section">
+        <h1 style="color: #09563c; margin-left: 340px; margin-top: 80px;">Liste des Produits à vendre :</h1>
+
+        <div class="row mb-5 justify-content-center" style=" margin-left: 230px;">
+            <div class="table-responsive" style="max-width: 1000px; margin: 0 auto;">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nom du Produit</th>
+                            <th>Catégorie</th>
+                            <th>Prix (DTN)</th>
+                            <th>Image</th>
+                             <th>
+                        <i class="bi bi-eye"></i> Consulter
+                    </th>
+                    <th>
+                        <i class="bi bi-pencil"></i> Supprimer
+                    </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for produit in produits %}
+                            {% if produit.typeProd == 'Vente' %}
+                                <tr>
+                                    <td>{{ produit.nomProd }}</td>
+                                    <td>{{ produit.idCat.CategorieProd }}</td>
+                                    <td>{{ produit.prixProd }}</td>
+                                    <td>
+                                        <img src="{{ asset('uploads/' ~ produit.photoProd) }}" class="img-fluid" alt="Product Image" style="width: 100px; height: 80px;">
+                                    </td>
+                                    
+                                  
+                                     <td>
+                        <a href="{{ path('app_produits_show', {'id': produit.id}) }}" class="link" style="margin-top: 10px;">Consulter</a>
+                    </td>
+                    <td>
+                               {{ include('produits/_delete_form.html.twig', {'id': produit.id}) }}                    </td>
+                                </tr>
+                            {% endif %}
+                        {% else %}
+                            <tr>
+                                <td colspan="5" class="text-center">
+                                    <p>Aucun produit à vendre trouvé</p>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
