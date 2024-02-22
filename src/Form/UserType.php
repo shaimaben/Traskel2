@@ -13,14 +13,11 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('roles')
-            ->add('password')
             ->add('nom_user')
             ->add('prenom_user')
             ->add('adresse_user')
             ->add('tel_user')
             ->add('points_user')
-            ->add('isVerified')
         ;
     }
 
@@ -31,3 +28,5 @@ class UserType extends AbstractType
         ]);
     }
 }
+
+

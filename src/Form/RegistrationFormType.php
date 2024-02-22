@@ -50,12 +50,21 @@ class RegistrationFormType extends AbstractType
                 'label' => 'Adresse',
                 'required' => false,
                 'constraints' => [
+                    new Length([
+                        'max' => 50,
+                        'maxMessage' => 'L\'adresse ne doit pas dépasser {{ limit }} caractères.',
+                    ]),
                     new Regex([
-                        'pattern' => '/^[0-9]{5}$/',
-                        'message' => 'L\'adresse doit contenir un code postal valide (5 chiffres).',
+                        'pattern' => '/^[a-zA-Z]+\s+\d{4}$/',
+                        'message' => 'L\'adresse doit contenir une chaîne de caractères suivie d\'un espace et d\'un code postal de 4 chiffres.',
                     ]),
                 ],
             ])
+            
+                
+            
+            
+            
             ->add('tel_user', TelType::class, [
                 'label' => 'Téléphone',
                 'required' => false,

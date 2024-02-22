@@ -1,13 +1,56 @@
-{% extends 'baseback1.html.twig' %}
+{% extends 'security/baseback1.html.twig' %}
 
 {% block title %}Edit User{% endblock %}
 
 {% block body %}
-    <h1>Edit User</h1>
+    <div class="container mt-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Edit User</h5>
 
-    {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
+                <!-- User Edit Form -->
+                <form class="mx-auto text-start" style="max-width: 400px;" method="post" action="{{ path('app_user_edit', {'id': user.id}) }}" novalidate>
+                    {{ form_start(form) }}
+                    
+                    <div class="mb-3">
+                        {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form_row(form.nom_user, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form_row(form.prenom_user, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form_row(form.adresse_user, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form_row(form.tel_user, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form_row(form.points_user, {'attr': {'class': 'form-control'}}) }}
+                    </div>
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
+                    <!-- Add other fields as needed -->
 
-    {{ include('user/_delete_form.html.twig') }}
+                    <div class="mb-3 text-center">
+                        <button type="submit" class="btn btn-primary">Update User</button>
+                    </div>
+                    {{ form_end(form) }}
+                </form>
+                <!-- End User Edit Form -->
+
+                <a href="{{ path('app_user_index') }}" class="btn btn-secondary">Back to List</a>
+
+                <!-- Delete User Form -->
+                {{ include('user/_delete_form.html.twig') }}
+                <!-- End Delete User Form -->
+            </div>
+        </div>
+    </div>
 {% endblock %}
