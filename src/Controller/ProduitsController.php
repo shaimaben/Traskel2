@@ -59,41 +59,58 @@ class ProduitsController extends AbstractController
         $produit = new Produit();
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
+            dump($form->getData());
             $file = $form['photoProd']->getData();
-        if ($file instanceof UploadedFile) {
-            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-            $file->move($this->getParameter('upload_directory'), $fileName);
-            $produit->setPhotoProd( $fileName);
-        }
+    
+            if ($file instanceof UploadedFile) {
+                $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+                $file->move($this->getParameter('upload_directory'), $fileName);
+                $produit->setPhotoProd($fileName);
+            } else {
+                $produit->setPhotoProd('7a6c6cc4df05258781e29ef7c08cf4b7.jpg');
+            }
+            if ($produit->getTypeProd() === 'Don') {
+                $produit->setPrixProd(0);
+            }
+    
             $entityManager->persist($produit);
             $entityManager->flush();
-
+    
             return $this->redirectToRoute('app_produit_thanks', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->render('produits/new.html.twig', [
             'produit' => $produit,
             'f' => $form,
         ]);
     }
+    
+
+  
 
     #[Route('/{id}', name: 'app_produits_show', methods: ['GET'])]
-    public function show(Produit $produit, Request $request): Response
-    {
-        $referer = $request->headers->get('referer');
+public function show(Produit $produit, Request $request): Response
+{
+    $referer = $request->headers->get('referer');
     
-        if (strpos($referer, '/produits/ProduitAdmin') !== false) {
-            return $this->render('produits/ShowProduitAdmin.html.twig', [
-                'produit' => $produit,
-            ]);
-        } else {
-            return $this->render('produits/show.html.twig', [
-                'produit' => $produit,
-            ]);
-        }
+    if (strpos($referer, '/produits/ProduitAdmin') !== false) {
+        return $this->render('produits/ShowProduitAdmin.html.twig', [
+            'produit' => $produit,
+        ]);
+    } elseif (strpos($referer, '/produits/userProducts') !== false) {
+        return $this->render('produits/showUserProducts.html.twig', [
+            'produit' => $produit,
+        ]);
+    } else {
+        return $this->render('produits/show.html.twig', [
+            'produit' => $produit,
+        ]);
     }
+}
+    
+
     
 
   

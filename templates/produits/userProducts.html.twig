@@ -29,7 +29,7 @@
             {% endfor %}
         </div>
 
-        <h1 style="color: #09563c; font-style: italic; margin-left: 20px;">Liste des Produits à donner :</h1>
+        <h1 style="color: #09563c; margin-left: 20px;">Liste des Produits à donner :</h1>
 
         <div class="row">
             {% for produit in produits %}
@@ -39,7 +39,7 @@
                         <a href="{{ path('app_produits_show', {'id': produit.id}) }}">
                             <img src="{{ asset('uploads/' ~ produit.photoProd) }}" class="img-fluid" alt="Product Image" style="width:250px; height: 200px;">
                             <h3 class="product-title">{{ produit.nomProd }}</h3>
-                            <strong class="product-price">{{ produit.prixProd }} DTN</strong>
+                            <strong class="product-price">0 DTN</strong>
                         </a>
                           <div class="product-buttons d-flex justify-content-center">
                             <a href="{{ path('app_produits_edit', {'id': produit.id}) }}" class="btn btn-secondary">Modifier</a>

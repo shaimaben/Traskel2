@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,18 +14,27 @@ class Produit
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Vous devez entrer le nom de votre produit.")]
+    #[Assert\Length(min:3, minMessage:"Le nom de votre produit doit contenir au moins {{ limit }} caractères.",max:255,maxMessage:"Le nom de votre produit ne peut pas dépasser {{ limit }} caractères."
+    )]
     private ?string $nomProd = null;
 
     #[ORM\Column(length: 10000, nullable: true)]
+    #[Assert\Length(max:255, maxMessage:"La description de votre produit ne peut pas dépasser {{ limit }} caractères.",)]
     private ?string $descrpProd = null;
 
     #[ORM\Column(length: 255)]
+    
     private ?string $photoProd = null;
+    
 
     #[ORM\Column]
+    #[Assert\NotBlank(message:"Vous devez entrer le type de votre produit.")]
     private ?string $typeProd = null;
 
     #[ORM\Column]
+    #[Assert\NotNull(message:"Vous devez entrer le prix de votre produit.")]
+    #[Assert\Type(type:"float", message:"Le champ prixProd doit être de type float.")]
     private ?float $prixProd = null;
 
     #[ORM\ManyToOne(inversedBy: 'produits')]
