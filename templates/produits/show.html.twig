@@ -13,14 +13,15 @@
                         <img src="{{ asset('uploads/' ~ produit.photoProd) }}" class="img-fluid" alt="{{ produit.nomProd }}" style="max-width:400px; height:450px;">
                     </div>
                     <div class="col-md-6">
-                        <div class="pl-md-4"> <!-- Ajout d'une marge à gauche pour la séparation -->
+                        <div class="pl-md-4"> 
                             <h2 class="font-weight-bold">{{ produit.nomProd }}</h2>
-                            <hr> <!-- Ligne de séparation -->
+                            <hr> 
                             <p>{{ produit.descrpProd }}</p>
                             <p><strong>Prix :</strong> {{ produit.prixProd }} DTN</p>
 
                             <div class="mt-4">
-                                <button class="btn btn-primary">Ajouter au Panier</button>
+                                <a href="{{ path('app_ajouter_panier', {'produit_id': produit.id}) }}" class="btn btn-primary">Ajouter au Panier</a>
+
                                 <a href="{{ path('app_produits_index') }}" class="btn btn-secondary">Retour à la liste</a>
                             </div>
                         </div>

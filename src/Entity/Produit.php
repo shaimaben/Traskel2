@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
 class Produit
@@ -36,7 +38,12 @@ class Produit
 
     #[ORM\ManyToOne(inversedBy: 'idprod')]
     private ?Panier $panier = null;
+    private $produits;
 
+    public function __construct()
+    {
+        $this->produits = new ArrayCollection();
+    }
     public function getId(): ?int
     {
         return $this->id;

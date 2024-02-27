@@ -1,3 +1,11 @@
+
+
+
+
+
+
+
+
 {% extends 'gestionProd/base.html.twig' %}
 
 {% block content %}
@@ -45,7 +53,7 @@
                 <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-success mb-0.9">Mettre à jour</button>
                 <div style="width: 10px;"></div>
-                {{ form_end(form, {'render_rest': false}) }}
+                {{ form_end(form) }}
                     {{ include('produits/_delete_form.html.twig') }}
                     <div style="width: 10px;"></div>
                     <a href="{{ path('app_produits_index') }}" class="btn btn-secondary ml-6">Retour à la liste</a>

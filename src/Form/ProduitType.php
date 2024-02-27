@@ -42,7 +42,7 @@ class ProduitType extends AbstractType
                 'choice_label' => 'CategorieProd', 
             ])
             
-            ->add('save', SubmitType::class)
+         
         ;
     }
 

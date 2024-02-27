@@ -1,0 +1,38 @@
+{% extends 'basePanier.html.twig' %}
+
+{% block title %}Commande{% endblock %}
+
+{% block body %}
+    <h1>Commande</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ commande.id }}</td>
+            </tr>
+            <tr>
+                <th>Adresse_Cmd</th>
+                <td>{{ commande.adresseCmd }}</td>
+            </tr>
+            <tr>
+                <th>Statut_Cmd</th>
+                <td>{{ commande.statutCmd }}</td>
+            </tr>
+            <tr>
+                <th>Prix_Cmd</th>
+                <td>{{ commande.prixCmd }}</td>
+            </tr>
+            <tr>
+                <th>Delais_Cmd</th>
+                <td>{{ commande.delaisCmd }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_commande_index') }}">back to list</a>
+
+    <a href="{{ path('app_commande_edit', {'id': commande.id}) }}">edit</a>
+
+    {{ include('commande/_delete_form.html.twig') }}
+{% endblock %}

@@ -4,7 +4,7 @@
 
 {% block content %}
     <div class="untree_co-section product-section before-footer-section">
-       <h1 style="color: #09563c; font-style: italic; margin-left: 20px;">Liste des Produits :</h1>
+      
 
 
         <div class="row">
@@ -18,7 +18,7 @@
                        <strong class="product-price">{{ produit.prixProd }} DTN</strong>
 
                         <span class="icon-cross">
-                            <img src="{{ asset('images/cross.svg') }}" class="img-fluid ">
+                            <a class="nav-link" href="{{ path('app_produit_ajoutDon') }}"><img src="{{ asset('images/cross.svg') }}" class="img-fluid ">
                         </span>
                     </a>
                 </div>

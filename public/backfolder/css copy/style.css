@@ -30,6 +30,7 @@ body {
 }
 
 
+
 .title {
   margin-top:50 ;
   text-align:center;
@@ -61,6 +62,9 @@ body {
   border: 2px solid #fff;
   box-shadow: 0 15px 40px rgba(0,0,0,.5);
 
+}
+.scrollable-container {
+  overflow-y: auto;
 }
 
 .container .right{

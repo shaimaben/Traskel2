@@ -1,0 +1,74 @@
+{% extends 'basePanier.html.twig' %}
+
+{% block title %}Panier index{% endblock %}
+
+{% block body %}
+    <h1>Panier index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Produit ID</th>
+                <th>Image du Produit</th>
+                <th>Nom du Produit</th>
+                <th>Prix du Produit</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set total_price = 0 %}
+            {% for produit in produits %}
+                <tr>
+                    <td>{{ produit.id }}</td>
+                    <td>
+                        <img src="{{ asset('uploads/' ~ produit.photoProd) }}" class="img-fluid" alt="Product Image" style="width: 100px; height: 80px;">
+                    </td>
+                    <td>{{ produit.nomProd }}</td>
+                    <td>{{ produit.prixProd }}</td>
+                    <td>
+                        <a href="{{ path('app_delete_produit_from_panier', {'produit_id': produit.id}) }}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                {% set total_price = total_price + produit.prixProd %}
+            {% endfor %}
+            {% if produits|length == 0 %}
+                <tr>
+                    <td colspan="5">No records found</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+    {% if produits|length > 0 %}
+        <div style="text-align: center; font-size: 2em; font-weight: bold; margin-top: 20px;">
+             Total Price: <span style="color: #114727;">{{ total_price|number_format(2, '.', ',') }} </span>Dinar <br><br>
+             Nombre des Produits: <span style="color: #114727;">{{ produits|length }}</span>
+
+        </div>
+    {% endif %}
+
+    <a href="{{ path('app_produits_index') }}" class="btn btn-secondary">Retour au produits</a>
+    <!-- <a href="{{ path('app_panier_new') }}">Create new</a> -->
+    <br><br>
+<label for="adresse" style="margin-bottom: 10px;">Donner votre adresse:</label>
+<input type="text" id="adresse" name="adresse" style="margin-bottom: 20px;">
+
+<label for="delais_Cmd" style="margin-bottom: 10px;">Command Details:</label>
+<input type="text" id="delais_Cmd" name="delais_Cmd" style="margin-bottom: 20px;">
+
+<a id="commande-link" href="{{ path('app_commande_new', {'total_price': total_price}) }}" class="btn btn-danger">Passer la Commande</a>
+
+<script>
+    function updateCommandeLink() {
+        var adresseValue = document.getElementById('adresse').value;
+        var delaisCmdValue = document.getElementById('delais_Cmd').value;
+        var total_price = {{ total_price }}; // assuming total_price is defined in the template
+        var commandeLink = document.getElementById('commande-link');
+        commandeLink.href = '{{ path('app_commande_new', {'total_price': total_price}) }}&adresse=' + encodeURIComponent(adresseValue) + '&delais_Cmd=' + encodeURIComponent(delaisCmdValue);
+    }
+
+    document.getElementById('adresse').addEventListener('input', updateCommandeLink);
+    document.getElementById('delais_Cmd').addEventListener('input', updateCommandeLink);
+</script>
+
+{% endblock %}
