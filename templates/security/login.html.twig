@@ -33,6 +33,9 @@
           <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
           <button class="btn btn-lg btn-success btn-block" type="submit" style="background-color: #1a6212;">Sign in</button>
+          <div class="mb-3">
+          <a href ="{{path ('app_forgot_password_request')}}">Mot de passe Perdu ? </a>
+          </div>
 
           <p class="text-center mt-5" style="color: #114727;">Don't have an account? <a href="{{ path('app_register') }}" class="text-decoration-none" style="color: #114727; margin-top: 10px; display: inline-block; transition: color 0.2s ease;">Click here to register</a></p>
         </form>

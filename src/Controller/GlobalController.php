@@ -25,8 +25,8 @@ class GlobalController extends AbstractController
             return $this->redirectToRoute('app_user_index'); // Replace 'user_controller_route' with the actual route for your UserController
         } else {
             return match ($user->isVerified()) {
-                false => $this->render("global/index.html.twig"),
-                //false => $this->render("global/please-verify-email.html.twig"),
+                true => $this->render("global/index.html.twig"),
+                false => $this->render("global/please-verify-email.html.twig"),
             };
         }
     }
