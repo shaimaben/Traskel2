@@ -19,6 +19,16 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
+use Symfony\Component\Validator\Constraints\IsTrue;
+use Symfony\Component\Security\Core\Exception\LogicException;
+use Symfony\Component\Security\Core\Security;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3Validator;
+
+
 
 class RegistrationController extends AbstractController
 {
@@ -30,13 +40,16 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppAuthAuthenticator $authenticator, EntityManagerInterface $entityManager , MailerInterface $mailer): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppAuthAuthenticator $authenticator, EntityManagerInterface $entityManager , MailerInterface $mailer,Security $security): Response
     {
         if ($this->getUser()) {
 			return $this->redirectToRoute('app_global');
 		}
+
+        // Génération du nonce pour le script reCAPTCHA
+
         $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(RegistrationFormType::class, $user );
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -51,16 +64,23 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            
+            $email = (new Email())
+            ->from('chaimachaimanourddin@gmail.com')
+            ->to($user->getEmail())
+            ->subject('test')
+            ->text('tets')
+            ->html('registration/confirmation_email.html.twig');
+       
+                $mailer->send($email); 
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                (new TemplatedEmail())
-                    ->from(new Address('Shaima.BenNourddine@esprit.tn', 'Traskel Mail bot'))
-                    ->to($user->getEmail())
-                    ->subject('Thank you for registering with Traskel! Please confirm your email to activate your account.')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
-            );
+            // $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            //     (new TemplatedEmail())
+            //         ->from(new Address('Shaima.BenNourddine@esprit.tn', 'Traskel Mail bot'))
+            //         ->to($user->getEmail())
+            //         ->subject('Thank you for registering with Traskel! Please confirm your email to activate your account.')
+            //         ->htmlTemplate('registration/confirmation_email.html.twig')
+            // );
             // do anything else you need here, like send an email
 
             return $userAuthenticator->authenticateUser(
@@ -72,6 +92,7 @@ class RegistrationController extends AbstractController
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
+            
         ]);
     }
 

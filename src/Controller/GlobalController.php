@@ -8,9 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class GlobalController extends AbstractController
 {
-
     #[Route('/global', name: 'app_global')]
-
     public function index(): Response
     {
         $this->denyAccessUnlessGranted("IS_AUTHENTICATED_FULLY");
@@ -23,15 +21,17 @@ class GlobalController extends AbstractController
         if (in_array('ROLE_ADMIN', $roles) && in_array('ROLE_USER', $roles)) {
             // Redirect to UserController
             return $this->redirectToRoute('app_user_index'); // Replace 'user_controller_route' with the actual route for your UserController
+        } elseif ($user->isIsBanned()) {
+            return $this->render("global/Banned.html.twig");
         } else {
             return match ($user->isVerified()) {
                 true => $this->render("global/index.html.twig"),
-                false => $this->render("global/please-verify-email.html.twig"),
+                false => $this->render("global/index.html.twig"),
+               false => $this->render("global/please-verify-email.html.twig"),
             };
         }
     }
-}
-        
+}        
    /* 
     public function index(): Response
     {
@@ -43,5 +43,14 @@ class GlobalController extends AbstractController
         
     
 
-  
+  // le test li kanou mahtoutin kbal ma tabda tbarbech 
+  /*
+  {
+            return match ($user->isVerified()) {
+                true => $this->render("global/index.html.twig"),
+                false => $this->render("global/please-verify-email.html.twig"),
+            };
+        }
+        */
+    
 

@@ -14,6 +14,8 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
+use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
 
 class RegistrationFormType extends AbstractType
 {
@@ -82,9 +84,9 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('email')
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
+           ->add('agreeTerms', CheckboxType::class, [
+               'mapped' => false,
+               'constraints' => [
                     new IsTrue([
                         'message' => 'Vous devez accepter nos conditions.',
                     ]),
@@ -104,6 +106,15 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+
+            ->add('captcha', Recaptcha3Type::class, [
+                'constraints' => [
+                    new Recaptcha3(['message' => 'reCAPTCHA validation failed. Please try again.']),
+                ],
+                'action_name' => 'Signup',
+            ])
+
+            
         ;
     }
 

@@ -18,6 +18,7 @@ class UserType extends AbstractType
             ->add('adresse_user')
             ->add('tel_user')
             ->add('points_user')
+            ->add('isBanned')
         ;
     }
 

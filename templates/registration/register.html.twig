@@ -11,7 +11,7 @@
 
         {{ form_errors(registrationForm) }}
 
-        {{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
+{{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
           <div class="form-group" style="padding: 0 20px;">
             {{ form_row(registrationForm.email, { 'attr': {'class': 'form-control form-control-lg mb-3', 'placeholder': 'Email'} }) }}
           </div>
@@ -36,10 +36,15 @@
             {{ form_row(registrationForm.plainPassword, { 'attr': {'class': 'form-control form-control-lg mb-3', 'placeholder': 'Password'} }) }}
           </div>
 
-          <div class="form-check" style="padding: 0 20px;">
+<div class="form-check" style="padding: 0 20px;">
             {{ form_row(registrationForm.agreeTerms, {'label_attr': {'class': 'form-check-label'}, 'attr': {'class': 'form-check-input'}}) }}
             {{ form_label(registrationForm.agreeTerms, 'I agree to the terms', {'label_attr': {'class': 'form-check-label'}}) }}
           </div>
+
+
+          
+          {# Render the reCAPTCHA widget #}
+          {{ form_row(registrationForm.captcha) }}
 
           <button type="submit" class="btn btn-primary btn-block mt-3" style="background-color: #1a6212;">Register</button>
         {{ form_end(registrationForm) }}
