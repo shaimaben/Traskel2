@@ -31,7 +31,19 @@ class GlobalController extends AbstractController
             };
         }
     }
-}        
+    
+    #[Route('/home', name: 'home')]
+    public function home(): Response
+    {
+        return $this->render('global/homepage.html.twig');
+    }
+
+    
+}
+
+ 
+    
+
    /* 
     public function index(): Response
     {
