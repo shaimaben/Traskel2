@@ -26,7 +26,7 @@ class GlobalController extends AbstractController
         } else {
             return match ($user->isVerified()) {
                 true => $this->render("global/index.html.twig"),
-                false => $this->render("global/index.html.twig"),
+                
                false => $this->render("global/please-verify-email.html.twig"),
             };
         }

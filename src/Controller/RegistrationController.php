@@ -64,23 +64,26 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $email = (new Email())
-            ->from('chaimachaimanourddin@gmail.com')
+           /* $email = (new Email())
+            ->from('Shaima.BenNourddine@esprit.tn')
             ->to($user->getEmail())
-            ->subject('test')
+            ->subject('test');
             ->text('tets')
             ->html('registration/confirmation_email.html.twig');
-       
-                $mailer->send($email); 
+       */
+                //$mailer->send($email); 
 
             // generate a signed url and email it to the user
-            // $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-            //     (new TemplatedEmail())
-            //         ->from(new Address('Shaima.BenNourddine@esprit.tn', 'Traskel Mail bot'))
-            //         ->to($user->getEmail())
-            //         ->subject('Thank you for registering with Traskel! Please confirm your email to activate your account.')
-            //         ->htmlTemplate('registration/confirmation_email.html.twig')
-            // );
+              
+             
+            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+    (new TemplatedEmail())
+        ->from(new Address('Shaima.BenNourddine@esprit.tn', 'Traskel Mail bot'))
+        ->to($user->getEmail())
+        ->subject('Thank you for registering with Traskel! Please confirm your email to activate your account.')
+        ->htmlTemplate('registration/confirmation_email.html.twig')
+);
+
             // do anything else you need here, like send an email
 
             return $userAuthenticator->authenticateUser(
