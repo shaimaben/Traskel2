@@ -5,11 +5,13 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+
 
 class GlobalController extends AbstractController
 {
     #[Route('/global', name: 'app_global')]
-    public function index(): Response
+    public function index(TokenStorageInterface $tokenStorage): Response
     {
         $this->denyAccessUnlessGranted("IS_AUTHENTICATED_FULLY");
 
@@ -22,6 +24,7 @@ class GlobalController extends AbstractController
             // Redirect to UserController
             return $this->redirectToRoute('app_user_index'); // Replace 'user_controller_route' with the actual route for your UserController
         } elseif ($user->isIsBanned()) {
+            $tokenStorage->setToken(null);
             return $this->render("global/Banned.html.twig");
         } else {
             return match ($user->isVerified()) {
