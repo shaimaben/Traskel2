@@ -22,7 +22,11 @@ class GlobalController extends AbstractController
         // Check if the user has both "ROLE_ADMIN" and "ROLE_USER"
         if (in_array('ROLE_ADMIN', $roles) && in_array('ROLE_USER', $roles)) {
             // Redirect to UserController
-            return $this->redirectToRoute('app_user_index'); // Replace 'user_controller_route' with the actual route for your UserController
+            return $this->redirectToRoute('app_user_index'); 
+
+        } elseif (in_array('ROLE_LIVREUR', $roles)) {
+            return $this->redirectToRoute('app_user_index');
+
         } elseif ($user->isIsBanned()) {
             $tokenStorage->setToken(null);
             return $this->render("global/Banned.html.twig");
