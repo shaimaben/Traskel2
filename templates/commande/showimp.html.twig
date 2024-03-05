@@ -1,0 +1,35 @@
+{% block body %}
+    <div style="text-align: center;">
+        <h1 style="color: #333;">Commande</h1>
+
+
+        <div style="margin: 0 auto; width: 50%;">
+            <div style="border: 2px solid #333; padding: 20px; border-radius: 10px; background-color: #f8f9fa;">
+                <table style="width: 100%; text-align: left;">
+                    <tbody>
+                        <tr>
+                            <th style="padding: 10px;">Id</th>
+                            <td style="padding: 10px;">{{ commande.id }}</td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 10px;">Adresse_Cmd</th>
+                            <td style="padding: 10px;">{{ commande.adresseCmd }}</td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 10px;">Statut_Cmd</th>
+                            <td style="padding: 10px;">{{ commande.statutCmd }}</td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 10px;">Prix_Cmd</th>
+                            <td style="padding: 10px;">{{ commande.prixCmd }}</td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 10px;">Delais_Cmd</th>
+                            <td style="padding: 10px;">{{ commande.delaisCmd }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

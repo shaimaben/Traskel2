@@ -5,28 +5,51 @@
 {% block content %}
     <div class="container mt-4">
         <div class="card mx-auto" style="width: 70%;">
-            <div class="card-body">
-                
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="{{ asset('uploads/' ~ produit.photoProd) }}" class="img-fluid" alt="{{ produit.nomProd }}" style="max-width:100%;">
+            </div>
+            <div class="col-md-6">
+                <div class="pl-md-4"> 
+                    <h2 class="font-weight-bold">{{ produit.nomProd }}</h2>
+                    <hr> 
+                    <p>{{ produit.descrpProd }}</p>
+                    <p><strong>Prix :</strong> {{ produit.prixProd }} DTN</p>
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <img src="{{ asset('uploads/' ~ produit.photoProd) }}" class="img-fluid" alt="{{ produit.nomProd }}" style="max-width:400px; height:450px;">
-                    </div>
-                    <div class="col-md-6">
-                        <div class="pl-md-4"> 
-                            <h2 class="font-weight-bold">{{ produit.nomProd }}</h2>
-                            <hr> 
-                            <p>{{ produit.descrpProd }}</p>
-                            <p><strong>Prix :</strong> {{ produit.prixProd }} DTN</p>
-
-                            <div class="mt-4">
-                                <a href="{{ path('app_ajouter_panier', {'produit_id': produit.id}) }}" class="btn btn-primary">Ajouter au Panier</a>
-
-                                <a href="{{ path('app_produits_index') }}" class="btn btn-secondary">Retour à la liste</a>
-                            </div>
-                        </div>
+                    <div class="mt-4">
+                        <a href="{{ path('app_ajouter_panier', {'produit_id': produit.id}) }}" class="btn btn-primary">Ajouter au Panier</a>
+                        <a href="{{ path('app_produits_index') }}" class="btn btn-secondary">Retour à la liste</a>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% for flashMessage in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+
+{% for flashMessage in app.flashes('info') %}
+    <div class="alert alert-info">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+
+{% for flashMessage in app.flashes('warning') %}
+    <div class="alert alert-warning">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+
+{% for flashMessage in app.flashes('danger') %}
+    <div class="alert alert-danger">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+
             </div>
         </div>
     </div>

@@ -11,18 +11,37 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 #[Route('/panier')]
 class PanierController extends AbstractController
 {
-    #[Route('/', name: 'app_panier_index', methods: ['GET'])]
-    public function index(ProduitRepository $produitRepository,EntityManagerInterface $entityManager): Response
+    #[Route('/', name: 'app_panier_index', methods: ['GET'])]public function index(PanierRepository $panierRepository, EntityManagerInterface $entityManager): Response
     {
-        $produits = $entityManager->getRepository(Produit::class)->findBy(['panier' => 1]);
+       # $produitIds = [3, 6, 4 ,2];
+      
+    $panierId=1;
+    $produitsIds = $panierRepository->getProduitsIdArrayById($panierId);
+       # $panier = new Panier(); // Assuming you are creating a new panier
+       $panier = $entityManager->getRepository(Panier::class)->findPanierById($panierId);
+        $panier->setTotalPrix(1);
+        $entityManager->persist($panier);
+        $entityManager->flush();
+        foreach ($produitsIds as $produitId) {
+            $produit = $entityManager->getRepository(Produit::class)->find($produitId);
+            if ($produit) {
+                $panier->addProduit($produit);
+            }
+        }
+        $entityManager->persist($panier);
+        $entityManager->flush();
+        $produits = $panier->getProduits();
+    
         return $this->render('panier/index.html.twig', [
             'produits' => $produits,
         ]);
     }
+
     #[Route('/indexadmin', name: 'app_panier_index_admin', methods: ['GET'])]
     public function indexadmin(PanierRepository $panierRepository): Response
     {
@@ -82,49 +101,60 @@ class PanierController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_panier_delete', methods: ['POST'])]
-    public function delete(Request $request, Panier $panier, EntityManagerInterface $entityManager): Response
+    public function delete(ProduitRepository $produitRepository,Request $request, Panier $panier, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$panier->getId(), $request->request->get('_token'))) {
             $entityManager->remove($panier);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_panier_index', [], Response::HTTP_SEE_OTHER);
+        return $this->render('produits/index.html.twig', ['produits' => $produitRepository->findAll(),]);
     }
     
     #[Route('/', name: 'app_ajouter_panier', methods: ['GET'])]
-    public function ajouterPanier(Request $request, EntityManagerInterface $entityManager, $produit_id,ProduitRepository $produitRepository): Response
+    public function ajouterPanier(EntityManagerInterface $entityManager, $produit_id): Response
     {
         $produit = $entityManager->getRepository(Produit::class)->find($produit_id);
         if (!$produit) {
             throw $this->createNotFoundException('Produit non trouvé.');
         }
-        $panier_id=1;
+    
+        $panier_id = 1;
         $panier = $entityManager->getRepository(Panier::class)->find($panier_id);
-        $produit->setPanier($panier);
-
+    
+        // Vérifier si le produit existe déjà dans le panier
+        $produitsId = $panier->getProduitsId() ?? [];
+        if (in_array($produit->getId(), $produitsId)) {
+            $this->addFlash('info', 'Le produit est déjà dans le panier.');
+            return $this->render('produits/show.html.twig', [
+                'produit' => $produit,
+            ]);
+        }
+    
+        $produitsId[] = $produit->getId();
+        $panier->setProduitsId($produitsId);
         $entityManager->flush();
-
-        return $this->render('produits/index.html.twig', [
-            'produits' => $produitRepository->findAll(),
+    
+        $this->addFlash('success', 'Le produit a été ajouté au panier avec succès.');
+    
+        return $this->render('produits/show.html.twig', [
+            'produit' => $produit,
         ]);
     }
+    
 
     #[Route('/delete-panier/{produit_id}', name: 'app_delete_produit_from_panier', methods: ['GET'])]
-public function deleteProduitFromPanier(Request $request, EntityManagerInterface $entityManager, $produit_id, ProduitRepository $produitRepository): Response
+
+public function deleteProduitFromPanier(PanierRepository $panierRepository, int $produit_id): Response
 {
-    $produit = $entityManager->getRepository(Produit::class)->find($produit_id);
+    $panierId = 1; // Assuming you want to delete from a specific panier
 
-    if (!$produit) {
-        throw $this->createNotFoundException('Produit non trouvé.');
-    }
+    // Remove produit_id from panier
+    $panierRepository->removeProduitIdFromPanier($panierId, $produit_id);
 
-    // Set the panier to null to remove the product from the cart
-    $produit->setPanier(null);
-    $entityManager->flush();
-
+    // Redirect or render a response as needed
     return $this->redirectToRoute('app_panier_index');
 }
-
+    
 
 }

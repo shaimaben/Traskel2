@@ -20,47 +20,113 @@
 {%endblock%}
 	<body>
 
+	{% block nav %}
+    <!-- Start Header/Navigation -->
+	
 		<!-- Start Header/Navigation -->
-        {% block nav %}
+        
 		<!-- Bootstrap CSS -->
 		<link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
 		<link href="{{asset('../../cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css')}}" rel="stylesheet">
 		<link href="{{asset('css/tiny-slider.css')}}" rel="stylesheet">
 		<link href="{{ asset('css/style.css') }}" rel="stylesheet">
 		<!-- Start Header/Navigation -->
-		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+    <nav class="appbar">
+        <div class="logo-container">
 
-			<div class="container">
-				<a class="navbar-brand" href="index.html">Traskel<span>.</span></a>
+			<img src="{{ asset('/LogoTraskel.png') }}">
+            <h1 class="site-name">Traskel.</h1>
+    </div>
+    <ul class="nav-list" style="font-size: 18px;">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="/portfolio">Portfolio</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a class="nav-link" href="/panier"><img src="{{asset('images/cart.svg')}}"></a></li>
+    </ul>
+    <div class="nav-icons">
+        <button class="login-button" style="font-size: 18px;">Login</button>
+        <i class="fas fa-chart-bar chart-icon" style="font-size: 24px;"></i>
+    </div>
+</nav>
 
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-
-				<div class="collapse navbar-collapse" id="navbarsFurni">
-					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-						<li class="nav-item">
-							<a class="nav-link" href="index.html">Home</a>
-						</li>
-						<li><a class="nav-link" href="shop.html">Shop</a></li>
-						<li><a class="nav-link" href="about.html">About us</a></li>
-						<li class="active"><a class="nav-link" href="services.html">Services</a></li>
-						<li><a class="nav-link" href="blog.html">Blog</a></li>
-						<li><a class="nav-link" href="contact.html">Contact us</a></li>
-					</ul>
-
-					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-						<li><a class="nav-link" href="#"><img src="{{asset('images/user.svg')}}"></a></li>
-						<li><a class="nav-link" href="/panier"><img src="{{asset('images/cart.svg')}}"></a></li>
-			</ul>
-				</div>
-			</div>
-				
-		</nav>
-		<!-- End Header/Navigation -->
-		<!-- End Header/Navigation -->
+    <!-- End Header/Navigation -->
 {% endblock %}
 
+<style>
+/* Add this to your stylesheet or in a style tag in your HTML file */
+.appbar {
+    background-color: #333;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 40px; /* Adjust the size of your logo */
+    height: 40px;
+    margin-right: 10px;
+}
+
+.site-name {
+    color: #fff;
+    margin: 0;
+    font-size: 24px;
+}
+
+.nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-list li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.nav-list a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.nav-list a:hover {
+    color: #ff4500;
+}
+
+.nav-icons {
+    display: flex;
+    align-items: center;
+}
+
+.login-button {
+    background-color: #ff4500;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.chart-icon {
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+</style>
 		<!-- Start Hero Section -->
         {% block content %}
 			<div class="hero">
