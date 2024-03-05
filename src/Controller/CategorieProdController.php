@@ -22,6 +22,7 @@ class CategorieProdController extends AbstractController
             'categorie_prods' => $categorieProdRepository->findAll(),
         ]);
     }
+    
 
 
 

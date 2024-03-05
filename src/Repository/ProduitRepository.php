@@ -47,6 +47,7 @@ class ProduitRepository extends ServiceEntityRepository
     return $queryBuilder->getQuery()->getResult();
 }
 
+
 public function searchInCategory(CategorieProd $category, string $searchTerm): array
 {
     $qb = $this->createQueryBuilder('p')

@@ -21,6 +21,7 @@ class CategorieProdType extends AbstractType
         ->add('color', ColorType::class);
         
     }
+    
 
     public function configureOptions(OptionsResolver $resolver): void
     {

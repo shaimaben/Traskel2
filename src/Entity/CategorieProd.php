@@ -36,6 +36,7 @@ class CategorieProd
     {
         return $this->id;
     }
+    
 
     public function getCategorieProd(): ?string
     {
