@@ -1,0 +1,78 @@
+{% extends 'gestionProd/baseback1.html.twig' %}
+
+{% block title %}Statistics{% endblock %}
+
+{% block body %}
+    <div style="display: flex; flex-direction: column; align-items: center; height: 100vh; margin-left: 300px;margin-buttom: 350px;">
+        <div class="card" style="width: 1000px; height: 600px; margin-top: 100px;margin-buttom: 150px;">
+            <div class="card-header">
+                <h1 class="title">Nombre de produits pour chaque catégorie</h1>
+            </div>
+            <div class="card-body">
+                <div>
+                    <canvas id="categChart" width="200" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card" style="width: 1000px; height: 600px; margin-top: 100px;">
+            <div class="card-header">
+                <h1 class="title">Nombre de produits ajoutés dans chaque jour</h1>
+            </div>
+            <div class="card-body">
+                <div>
+                    <canvas id="annoncesChart" width="200" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script>
+        // Chart for Categories
+        var ctxCateg = document.getElementById('categChart').getContext('2d');
+        var categChart = new Chart(ctxCateg, {
+            type: 'doughnut',
+            data: {
+                labels: {{ categNom | raw }},
+                datasets: [{
+                    label: 'Category Count',
+                    backgroundColor: {{ categColor | raw }},
+                    data: {{ categCount | raw }},
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Chart for Annonces by Date
+        var ctxAnnonces = document.getElementById('annoncesChart').getContext('2d');
+        var annoncesChart = new Chart(ctxAnnonces, {
+            type: 'bar',
+            data: {
+                labels: {{ dates | raw }},
+                datasets: [{
+                    label: 'Annonces Count',
+                    backgroundColor: {{ categColor | raw }},
+                    data: {{ annoncesCount | raw }},
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}

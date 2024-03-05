@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+   <div class="container mt-4">
+    <div class="card mx-auto" style="width: 60%;">
+        <div class="card-body">
+            <h1 class="card-title text-center" style="color: #09563c; text-transform: uppercase;">Ajouter Votre produit</h1>
+            <hr style="border-color: #09563c;">
+            
+          {{ form_start(f, {'attr': {'novalidate': 'novalidate'}}) }}
+            <table>
+                <tr>
+                    <td class="titlep">{{ form_label(f.nomProd, "Nom de déchets") }}</td>
+                    <td>
+                        {{ form_widget(f.nomProd, {'attr': {'class': 'form-control'}}) }}
+                     <div style="color: red;">     {{ form_errors(f.nomProd) }} </div>
+                    </td>
+                </tr>
+                <tr>
+                  <td class="titlep">
+    {{ form_label(f.typeProd, "Type de déchets") }}<br>
+    (Prix défini à 0 DTN pour les dons.)
+</td>
+                    <td>
+                        {{ form_widget(f.typeProd, {'attr': {'class': 'form-control'}}) }}
+                      <div style="color: red;">    {{ form_errors(f.typeProd) }} </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="titlep">{{ form_label(f.photoProd, "Photo de déchets") }}</td>
+                    <td>
+                        {{ form_widget(f.photoProd, {'attr': {'class': 'form-control'}}) }}
+                       <div style="color: red;">   {{ form_errors(f.photoProd) }} </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="titlep">{{ form_label(f.prixProd, "Le prix") }}</td>
+                    <td>
+                        {{ form_widget(f.prixProd, {'attr': {'class': 'form-control'}}) }}
+                        <div style="color: red;">  {{ form_errors(f.prixProd) }} </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="titlep">{{ form_label(f.descrpProd, "Description du produit") }}</td>
+                    <td>
+                        {{ form_widget(f.descrpProd, {'attr': {'class': 'form-control'}}) }}
+                         <div style="color: red;"> {{ form_errors(f.descrpProd) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="titlep">{{ form_label(f.idCat, "Catégorie du produit") }}</td>
+                    <td>
+                        {{ form_widget(f.idCat, {'attr': {'class': 'form-control'}}) }}
+                       <div style="color: red;"> {{ form_errors(f.idCat) }} </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="submit" class="btn btn-success mb-0.9" style="margin-top: 14px">Enregistrer</button>
+                    </td>
+                    <td>
+                        <a href="{{ path('app_produits_index') }}" class="btn btn-secondary mt-3">Retour à la liste</a>
+                    </td>
+                </tr>
+            </table>
+            
+            {{ form_end(f) }}
+            
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{# categorie_prod/edit.html.twig #}
+
+{% extends 'gestionProd/baseback1.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="card-header">
+            <h1 class="title">Modifier la catégorie : {{ categorie_prod.categorieProd }}</h1>
+        </div>
+        <div class="card-body">
+            {{ form_start(form) }}
+            
+            <div class="form-group mb-3">
+                {{ form_label(form.categorie_prod, 'Nom du catégorie :', {'label_attr': {'class': 'titlep'}}) }}
+                {{ form_widget(form.categorie_prod, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-success mb-0.9">Mettre à jour</button>
+            </div>
+            
+            {{ form_end(form) }}
+
+            <div class="d-flex">
+             {{ include('categorie_prod/_delete_form.html.twig') }}
+                <a href="{{ path('app_categorie_prod_index') }}" class="btn btn-secondary custom-margin-between-buttons">Retour à la liste</a>
+               
+            </div>
+        </div>
+    </div>
+{% endblock %}
