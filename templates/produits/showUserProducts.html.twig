@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="card mx-auto" style="width: 70%;">
+            <div class="card-body">
+                
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="{{ asset('uploads/' ~ produit.photoProd) }}" class="img-fluid" alt="{{ produit.nomProd }}" style="max-width:400px; height:450px;">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="pl-md-4"> <!-- Ajout d'une marge à gauche pour la séparation -->
+                            <h2 class="font-weight-bold">{{ produit.nomProd }}</h2>
+                            <hr> <!-- Ligne de séparation -->
+                            <p>{{ produit.descrpProd }}</p>
+                            <p><strong>Prix :</strong> {{ produit.prixProd }} DTN</p>
+
+                            <div class="mt-4">
+                                
+                                <a href="{{ path('app_produits_index') }}" class="btn btn-secondary">Retour à la liste</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

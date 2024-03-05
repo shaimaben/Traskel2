@@ -1,0 +1,30 @@
+{% extends 'gestionProd/produitsAdmin.html.twig' %}
+{% block body %}
+ <div style="height:30px">
+                </div>
+  <div class="container d-flex align-items-center justify-content-center" style="height: 80vh;">
+        <div class="card mx-auto" style="width: 90%;height: 90%;">
+            <div class="card-body">
+            <div style="height:40px">
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="{{ asset('uploads/' ~ produit.photoProd) }}" class="img-fluid" alt="{{ produit.nomProd }}" style="max-width:270px; height:450px;">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="pl-md-4 mt-4"> <!-- Ajout d'une marge en haut -->
+                            <h2 class="font-weight-bold">{{ produit.nomProd }}</h2>
+                            <hr> <!-- Ligne de séparation -->
+                            <p>{{ produit.descrpProd }}</p>
+                            <p><strong>Prix :</strong> {{ produit.prixProd }} DTN</p>
+
+                            <!-- Bouton Retour à la liste -->
+                            <a href="{{ path('app_produit_produitAdmin') }}" class="btn btn-secondary">Retour à la liste</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        
+    </div>
+{% endblock %}

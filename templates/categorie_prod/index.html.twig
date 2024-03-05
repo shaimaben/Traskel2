@@ -1,0 +1,42 @@
+{% extends 'gestionProd/baseback1.html.twig' %}
+
+{% block body %}
+    <div class="container" style="overflow-y: auto;">
+        <h1 class="title">liste des catégories</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Identifiant</th>
+                    <th>Nom du catégorie</th>
+                    <th>
+                        <i class="bi bi-eye"></i> Consulter
+                    </th>
+                    <th>
+                        <i class="bi bi-pencil"></i> Modifier
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for categorie_prod in categorie_prods %}
+                <tr>
+                    <td>{{ categorie_prod.id }}</td>
+                    <td>{{ categorie_prod.categorieProd }}</td>
+                    <td>
+                        <a href="{{ path('app_categorie_prod_show', {'id': categorie_prod.id}) }}" class="link">Consulter</a>
+                    </td>
+                    <td>
+                        <a href="{{ path('app_categorie_prod_edit', {'id': categorie_prod.id}) }}" class="link">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Aucun enregistrement trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_categorie_prod_new') }}" class="btn btn-success">Ajouter une autre catégorie</a>
+    </div>
+{% endblock %}

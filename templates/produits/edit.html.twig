@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="card mx-auto" style="width: 50%;">
+            <div class="card-header">
+                <h1 class="title">Modifier le produit : {{ produit.nomProd }}</h1>
+            </div>
+            <div class="card-body">
+                {{ form_start(form,  {'attr': {'novalidate': 'novalidate'}}) }}
+                
+                <div class="form-group mb-3">
+                    {{ form_label(form.nomProd, 'Nom du produit :', {'label_attr': {'class': 'titlep'}}) }}
+                    {{ form_widget(form.nomProd, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.nomProd) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.prixProd, 'Prix du produit :', {'label_attr': {'class': 'titlep'}}) }}
+                    {{ form_widget(form.prixProd, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.prixProd) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.typeProd, 'Type du produit :', {'label_attr': {'class': 'titlep'}}) }}
+                    {{ form_widget(form.typeProd, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.typeProd) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.photoProd, 'Photo du produit :', {'label_attr': {'class': 'titlep'}}) }}
+                    {{ form_widget(form.photoProd, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.photoProd) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.idCat, 'Catégorie du produit :', {'label_attr': {'class': 'titlep'}}) }}
+                    {{ form_widget(form.idCat, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.idCat) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.descrpProd, 'Description du produit :', {'label_attr': {'class': 'titlep'}}) }}
+                    {{ form_widget(form.descrpProd, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.descrpProd) }}
+                </div>
+
+                <button type="submit" class="btn btn-success mb-0.9">Mettre à jour</button>
+                {{ form_end(form) }}
+
+                <div class="d-flex mt-3">
+                    {{ include('produits/_delete_form.html.twig') }}
+                    <a href="{{ path('app_produits_index') }}" class="btn btn-secondary custom-margin-between-buttons">Retour à la liste</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
