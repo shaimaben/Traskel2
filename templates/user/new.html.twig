@@ -1,10 +1,6 @@
-{% extends 'security/baseback1.html.twig' %}
-
-{% block title %}New User{% endblock %}
-
-{% block body %}
+{#
     <div style="text-align: center; margin-top: 50px;">
-        <h1>Create new User</h1>
+        <h1> Créer Un Nouveau compte </h1>
 
         <div style="display: inline-block; text-align: left;">
             {{ include('user/_form.html.twig') }}
@@ -15,8 +11,49 @@
         <a href="{{ path('app_user_index') }}">back to list</a>
     </div>
 
-    <script>
-        // Disable HTML5 form validation
+    
+ #}
+
+{% extends 'security/baseback1.html.twig' %}
+
+{% block title %}New User{% endblock %}
+
+{% block body %}
+<br> </br> <br> </br>
+<div style="text-align: center; margin-top: 50px; margin-left: 200px ">
+    <h1> Créer Un Nouveau compte </h1>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                {{ form_start(form) }}
+                
+                {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
+                {{ form_row(form.nom_user, {'attr': {'class': 'form-control'}}) }}
+                {{ form_row(form.prenom_user, {'attr': {'class': 'form-control'}}) }}
+                {{ form_row(form.adresse_user, {'attr': {'class': 'form-control'}}) }}
+                {{ form_row(form.tel_user, {'attr': {'class': 'form-control'}}) }}
+                {{ form_row(form.points_user, {'attr': {'class': 'form-control'}}) }}
+                {{ form_row(form.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                {{ form_row(form.is_verified, ) }}
+                {{ form_row(form.isBanned, ) }}
+                {{ form_row(form.roles, ) }}
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Créer le compte</button>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <a href="{{ path('app_user_index') }}">Retour à la liste</a>
+</div>
+<script>
+    //cette partie c pour désactiver le CS de Html par defaut //
         document.addEventListener('DOMContentLoaded', function() {
             var forms = document.querySelectorAll('form');
             forms.forEach(function(form) {
@@ -24,4 +61,20 @@
             });
         });
     </script>
+    <style>
+    .container {
+    margin-top: 20px;
+}
+
+.form-control {
+    margin-bottom: 15px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+</style>
+
 {% endblock %}
+

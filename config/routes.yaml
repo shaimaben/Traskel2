@@ -4,3 +4,7 @@ controllers:
         namespace: App\Controller
     type: attribute
 
+search_users:
+    path: '/user/'
+    controller: 'App\Controller\UserController::searchUsers'
+    methods: ['GET', 'POST']
