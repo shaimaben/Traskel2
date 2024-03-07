@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\CategorieProd;
 use App\Entity\Produit;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -20,6 +21,49 @@ class ProduitRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Produit::class);
     }
+    public function findProduitById(int $produitId): ?Produit
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.id = :produitId')
+            ->setParameter('produitId', $produitId)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function countByDate(){
+        $query = $this->createQueryBuilder('a')
+            ->select('SUBSTRING(a.createdAt, 1, 10) as dateAnnonces, COUNT(a) as count')
+            ->groupBy('dateAnnonces')
+         ;
+         return $query->getQuery()->getResult();
+      
+    }
+
+
+    public function findAllWithSearch($searchTerm)
+{
+    $queryBuilder = $this->createQueryBuilder('p');
+
+    if ($searchTerm) {
+        $queryBuilder->andWhere('p.nomProd LIKE :searchTerm')
+                     ->setParameter('searchTerm', '%' . $searchTerm . '%');
+    }
+
+    return $queryBuilder->getQuery()->getResult();
+}
+
+public function searchInCategory(CategorieProd $category, string $searchTerm): array
+{
+    $qb = $this->createQueryBuilder('p')
+        ->andWhere('p.idCat = :category')
+        ->setParameter('category', $category)
+        ->andWhere('p.nomProd LIKE :searchTerm')
+        ->setParameter('searchTerm', '%' . $searchTerm . '%')
+        ->getQuery();
+
+    return $qb->getResult();
+}
+
 
 //    /**
 //     * @return Produit[] Returns an array of Produit objects

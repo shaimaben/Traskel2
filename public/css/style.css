@@ -30,6 +30,28 @@ a {
   a.more {
     font-weight: 600; }
 
+  .scrollmenu {
+    overflow-x: auto;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+  
+  .scrollmenu a {
+    display: inline-block;
+    padding: 10px; /* Ajoutez une marge intérieure pour l'espace entre les éléments */
+    width: auto; /* Ajustez selon vos besoins */
+  }
+.title {
+    margin-top:50 ;
+    text-align:center;
+    padding: 20px 20px 10px;
+    color: #09563c;
+    text-transform: uppercase;
+    font-size: 30px;
+    font-weight:600;
+    font-family: Arial, Helvetica, sans-serif;
+  
+  }  
 .custom-navbar {
   background: #3b5d50 !important;
   padding-top: 20px;
@@ -116,7 +138,7 @@ a {
     margin-bottom: 30px; }
     @media (min-width: 1400px) {
       .hero h1 {
-        font-size: 54px; } }
+        font-size: 44px; } }
   .hero p {
     color: rgba(255, 255, 255, 0.5);
     margin-botom: 30px; }
@@ -311,14 +333,15 @@ a {
     line-height: 22px;
     color: #6a6a6a; }
 
-.we-help-section {
-  padding: 7rem 0; }
-  .we-help-section .imgs-grid {
-    display: -ms-grid;
-    display: grid;
-    -ms-grid-columns: (1fr)[27];
-    grid-template-columns: repeat(27, 1fr);
-    position: relative; }
+    .we-help-section {
+      padding: 7rem 0;
+    }
+    
+    .we-help-section .imgs-grid {
+      display: grid;
+      grid-template-columns: repeat(27, 1fr);
+      position: relative;
+    }
     .we-help-section .imgs-grid:before {
       position: absolute;
       content: "";

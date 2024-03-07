@@ -1,0 +1,45 @@
+{% extends 'baseLivreur.html.twig' %}
+
+{% block title %}Livraisons index{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Liste Livraisons</h1>
+
+        <table class="table">
+            <thead>
+                <tr style="font-size: 1.2em; font-weight: bold;">
+                    <th>Id</th>
+                    <th>Adresse</th>
+
+                    <th>Prix Total</th>
+                    <th>Ajouté à</th>
+                    <th style="width: 10%;">Détails</th>
+                    <th style="width: 10%;">Modifier</th>
+                    <th style="width: 10%;">Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for liv in livraisons %}
+                <tr>
+                    <td>{{ liv.id }}</td>
+                    <td>{{ liv.commande.adresseCmd }}</td>
+
+                    <td>{{ liv.commande.prixCmd }}</td>
+                    <td>{{ liv.createdAt ? liv.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>
+                        <a href="{{ path('affichLivraison', {'id': liv.id}) }}" class="btn btn-info">détails</a>
+                    </td>
+                    <td>
+                        <a href="{{ path('modifierLivraison', {'id': liv.id}) }}" class="btn btn-warning">modifier</a>
+                    </td>
+                    <td>
+                        <a href="{{ path('deleteLivraison', {'id': liv.id}) }}" class="btn btn-dark">supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ path('ajouterLivraison')}}" class="btn btn-danger">Ajouter Livraison</a>
+    </div>
+{% endblock %}

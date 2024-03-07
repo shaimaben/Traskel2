@@ -3,9 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\LivraisonRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: LivraisonRepository::class)]
 class Livraison
@@ -15,20 +14,39 @@ class Livraison
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'livraisons')]
+    #[ORM\OneToOne(cascade: ['persist'])]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(message:'commande est obligatoire!')]
+    private ?Commande $commande = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(message:'id Membre est obligatoire!')]
     private ?User $idMembre = null;
 
-    #[ORM\OneToMany(targetEntity: Panier::class, mappedBy: 'livraison')]
-    private Collection $idPanier;
+    #[ORM\Column]
+    #[Assert\NotBlank(message:'temps d\'ajout est obligatoire!')]
+    private ?\DateTimeImmutable $createdAt = null;
 
-    public function __construct()
-    {
-        $this->idPanier = new ArrayCollection();
-    }
+    #[ORM\Column]
+    private ?bool $isConfirmed = false;
+
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getCommande(): ?Commande
+    {
+        return $this->commande;
+    }
+
+    public function setCommande(Commande $commande): static
+    {
+        $this->commande = $commande;
+
+        return $this;
     }
 
     public function getIdMembre(): ?User
@@ -43,33 +61,29 @@ class Livraison
         return $this;
     }
 
-    /**
-     * @return Collection<int, Panier>
-     */
-    public function getIdPanier(): Collection
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->idPanier;
+        return $this->createdAt;
     }
 
-    public function addIdPanier(Panier $idPanier): static
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
-        if (!$this->idPanier->contains($idPanier)) {
-            $this->idPanier->add($idPanier);
-            $idPanier->setLivraison($this);
-        }
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function removeIdPanier(Panier $idPanier): static
+    public function isIsConfirmed(): ?bool
     {
-        if ($this->idPanier->removeElement($idPanier)) {
-            // set the owning side to null (unless already changed)
-            if ($idPanier->getLivraison() === $this) {
-                $idPanier->setLivraison(null);
-            }
-        }
+        return $this->isConfirmed;
+    }
+
+    public function setIsConfirmed(bool $isConfirmed): static
+    {
+        $this->isConfirmed = $isConfirmed;
 
         return $this;
     }
+
+
 }

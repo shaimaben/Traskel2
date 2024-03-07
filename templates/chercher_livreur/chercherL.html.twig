@@ -1,0 +1,149 @@
+{% extends 'baseLivreur.html.twig' %}
+
+{% block title %}Chercher Livreur{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1><b>Chercher Livreur</b></h1>
+
+    <form method="get" action="{{ path('chercher_livreur') }}">
+        <label for="prenom" style="font-weight: bold; font-size: 18px;">Prénom: </label>
+        <input type="text" id="prenom" name="prenom">
+        <button type="submit" class="btn btn-dark">Rechercher</button>
+    </form>
+
+    {% if user is not null %}
+        <h1 class="mt-5 mb-5"><b>Résultats pour: "{{ user.prenomUser }} {{ user.nomUser }}"</b></h1>
+    </div>
+    <hr style="border: 2px solid black;"></hr>
+        {# livraisons Produits #}
+        <div class="container">
+            <h2 class="text-success">Liste des Livraisons Produits:</h2>
+            <div class="dropdown mb-3">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filtrer
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item filter-option" href="#" data-filter="all">Tous</a>
+                    <a class="dropdown-item filter-option" href="#" data-filter="confirmed">Confirmé</a>
+                    <a class="dropdown-item filter-option" href="#" data-filter="not-confirmed">Non Confirmé</a>
+                </div>
+            </div>
+            
+            <table class="table table-bordered mt-3" id="livraisons-table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Adresse</th>
+                        <th scope="col">Nb. Produits</th>
+                        <th scope="col">Prix Total</th>
+                        <th scope="col">Ajouté à</th>
+                        <th scope="col">Confirmé</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for liv in livraisons %}
+                        <tr class="livraison-row {% if liv.isConfirmed %}confirmed{% else %}not-confirmed{% endif %}">
+                            <td>{{ liv.commande.adresseCmd }}</td>
+                            <td>{{ liv.commande.panierNbProd }} produits</td>
+                            <td>{{ liv.commande.prixCmd }}</td>
+                            <td>{{ liv.createdAt|date('d-m-Y H:i:s') }}</td>
+                            <td>
+                                {% if liv.isConfirmed %}
+                                    <span class="text-success">✔️</span>
+                                {% else %}
+                                    <span class="text-danger">❌</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+<hr style="border: 2px solid black;"></hr>
+
+        {# livraisons Cadeaux #}
+        <div class="container mt-5 mb-5">
+            <h2 class="text-success">Liste des Livraisons Cadeaux:</h2>
+            <div class="dropdown mb-3">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filtrer
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item filterC-option" href="#" data-filter="all">Tous</a>
+                    <a class="dropdown-item filterC-option" href="#" data-filter="confirmed">Confirmé</a>
+                    <a class="dropdown-item filterC-option" href="#" data-filter="not-confirmed">Non Confirmé</a>
+                </div>
+            </div>
+            
+            <table class="table table-bordered mt-3">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Adresse</th>
+                        <th scope="col">Cadeaux</th>
+                        <th scope="col">Crée à</th>
+                        <th scope="col">Confirmé</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for livC in livCad %}
+                        <tr class="livraisonC-row {% if livC.isConfirmed %}confirmed{% else %}not-confirmed{% endif %}">
+                            <td>{{ livC.membre.prenomUser }} {{ livC.membre.nomUser }}</td>
+                            <td>{{ livC.membre.adresseUser }}</td>
+                            <td>
+                                {% for cadeau in livC.listeCadeaux %}
+                                    {{ cadeau.nomCad }}{% if not loop.last %}, {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>{{ livC.createdAt|date('d-m-Y H:i:s') }}</td>
+                            <td>
+                                {% if livC.isConfirmed %}
+                                    <span class="text-success">✔️</span>
+                                {% else %}
+                                    <span class="text-danger">❌</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p><b>Aucun utilisateur trouvé avec ce prénom.</b></p>
+    {% endif %}
+
+    
+{% endblock %}
+{% block javascripts %}
+{% block importmap %}{{ importmap('app') }}{% endblock %}
+<script>
+    document.querySelectorAll('.filter-option').forEach(option => {
+        option.addEventListener('click', function(e) {
+            e.preventDefault();
+            const filter = this.dataset.filter;
+            const rows = document.querySelectorAll('.livraison-row');
+            rows.forEach(row => {
+                row.style.display = 'table-row';
+                if (filter !== 'all' && !row.classList.contains(filter)) {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    document.querySelectorAll('.filterC-option').forEach(option => {
+        option.addEventListener('click', function(e) {
+            e.preventDefault();
+            const filter = this.dataset.filter;
+            const rows = document.querySelectorAll('.livraisonC-row');
+            rows.forEach(row => {
+                row.style.display = 'table-row';
+                if (filter !== 'all' && !row.classList.contains(filter)) {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

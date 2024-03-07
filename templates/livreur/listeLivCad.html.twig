@@ -1,0 +1,46 @@
+{% extends 'baseLivreur.html.twig' %}
+
+{% block title %}Cadeaux{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-5">
+        <h1 class="mb-4">Livraisons Cadeaux</h1>
+
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Adresse</th>
+                    <th scope="col">Cadeaux</th>
+                    <th scope="col">Ajouté à</th>
+                    <th scope="col">Confirmation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for livC in livCad %}
+                    <tr>
+                        <td>{{ livC.membre.prenomUser }} {{ livC.membre.nomUser }}</td>
+                        <td>{{ livC.membre.adresseUser }}</td>
+                        <td>
+                            {% for cadeau in livC.listeCadeaux %}
+                                {{ cadeau.nomCad }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>{{ livC.createdAt|date('d-m-Y H:i:s') }}</td>
+                        <td>
+                            <form action="{{ path('confirmerLivraisonCadeaux',{'id': livC.id})}}" method="post">
+                                <button type="submit" class="btn btn-success">Confirmer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="map-container" class="d-flex justify-content-center">
+        <div id="map"></div>
+    </div>
+    
+{% endblock %}

@@ -20,7 +20,63 @@ class PanierRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Panier::class);
     }
+    public function findPanierById(int $panierId): ?Panier
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.id = :panierId')
+            ->setParameter('panierId', $panierId)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+    public function getProductsByIds(array $produitIds): array
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.id IN (:produitIds)')
+            ->setParameter('produitIds', $produitIds);
 
+        return $qb->getQuery()->getResult();
+    }
+    public function removeProduitIdFromPanier(int $panierId, int $produitId): void
+    {
+        $entityManager = $this->getEntityManager();
+        $panier = $this->find($panierId);
+
+        if ($panier) {
+            $produitsIds = $panier->getProduitsId();
+
+            $key = array_search($produitId, $produitsIds);
+            if ($key !== false) {
+                unset($produitsIds[$key]);
+            }
+
+            $panier->setProduitsId($produitsIds);
+
+            $entityManager->flush();
+        }
+    }
+    public function getProduitsIdArrayById(int $panierId): ?array
+    {
+        $queryBuilder = $this->createQueryBuilder('p');
+        $result = $queryBuilder
+            ->select('p.produits_id')
+            ->where('p.id = :panierId')
+            ->setParameter('panierId', $panierId)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        if ($result) {
+            if (is_array($result['produits_id'])) {
+                return $result['produits_id'];
+            }
+
+            return explode(',', $result['produits_id'] ?? '');
+        }
+
+        return null;
+    }
+
+    
 //    /**
 //     * @return Panier[] Returns an array of Panier objects
 //     */

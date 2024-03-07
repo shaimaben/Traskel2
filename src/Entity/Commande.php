@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CommandeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 #[ORM\Entity(repositoryClass: CommandeRepository::class)]
 class Commande
@@ -38,6 +39,7 @@ class Commande
         return $this->adresse_Cmd;
     }
 
+    
     public function setAdresseCmd(string $adresse_Cmd): static
     {
         $this->adresse_Cmd = $adresse_Cmd;
@@ -62,10 +64,9 @@ class Commande
         return $this->prix_Cmd;
     }
 
-    public function setPrixCmd(float $prix_Cmd): static
+    public function setPrixCmd(?float $prix_Cmd): static
     {
         $this->prix_Cmd = $prix_Cmd;
-
         return $this;
     }
 
@@ -92,4 +93,11 @@ class Commande
 
         return $this;
     }
+    public function configureOptions(OptionsResolver $resolver)
+{
+    $resolver->setDefaults([
+        'data_class' => Commande::class, // Adjust based on your entity class
+    ]);
+}
+
 }

@@ -1,0 +1,39 @@
+{% block body %}
+    <div style="text-align: center; margin-top: 50px;">
+        <h1 class="title">Liste des catégories</h1>
+</br>
+        <div style="margin: 0 auto; width: 80%;">
+            <div style="border: 2px solid #333; padding: 20px; border-radius: 10px; background-color: #f8f9fa;">
+                <table style="width: 100%; text-align: left;">
+                    <thead>
+                        <tr>
+                            <th>Nom de la catégorie</th>
+                            <th>Couleur de la catégorie</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Ajout du divider avec margin-bottom -->
+                        </br>
+                        <tr style="height: 2px; background-color: #333; margin-bottom: 10px;">
+                            <td colspan="2"></td>
+                        </tr>
+                        </br>
+
+                    {% for categorie_prod in categorie_prods %}
+                        <tr>
+                            <td>{{ categorie_prod.categorieProd }}</td>
+                            <td>
+                                <div style="width: 150px; height: 20px; background-color: {{ categorie_prod.color }}"></div>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="2">Aucun enregistrement trouvé</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

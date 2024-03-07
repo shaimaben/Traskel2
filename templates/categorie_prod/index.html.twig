@@ -1,0 +1,57 @@
+{% extends 'gestionProd/baseback1.html.twig' %}
+
+{% block body %}
+
+    <div class="container" style="overflow-y: auto; height: 470px;">
+    
+        <h1 class="title">liste des catégories</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    
+                    <th>Nom du catégorie</th>
+                    <th>Couleur du catégorie</th>
+                    <th>
+                        <i class="bi bi-eye"></i> Consulter
+                    </th>
+                    <th>
+                        <i class="bi bi-pencil"></i> Modifier
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for categorie_prod in categorie_prods %}
+                <tr>
+                    
+                    <td>{{ categorie_prod.categorieProd }}</td>
+                    <td>
+                        <div style="width: 150px; height: 20px; background-color: {{ categorie_prod.color }}"></div>
+                    </td>
+                    <td>
+                        <a href="{{ path('app_categorie_prod_show', {'id': categorie_prod.id}) }}" class="link">Consulter</a>
+                    </td>
+                    <td>
+                        <a href="{{ path('app_categorie_prod_edit', {'id': categorie_prod.id}) }}" class="link">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Aucun enregistrement trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+      <div class="row">
+            <div class="col">
+                <a href="{{ path('app_categorie_prod_new') }}" class="btn btn-success">Ajouter une autre catégorie</a>
+            </div>
+            <div class="col">
+                <a href="{{ path('download_categories_pdf') }}" class="btn btn-success">
+                    <i class="bi bi-download"></i> Télécharger en PDF
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

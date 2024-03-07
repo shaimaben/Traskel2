@@ -1,0 +1,60 @@
+{% extends 'baseLivreur.html.twig' %}
+
+{% block title %}Cadeau{% endblock %}
+{% block stylesheets %}
+    <style>
+    th{
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+    </style>
+{% endblock %}
+{% block body %}
+    <h1>Cadeau</h1>
+
+    <div class="container">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ livC.membre.prenomUser }} {{ livC.membre.nomUser }}</td>
+                </tr>
+                <tr>
+                    <th>Adresse</th>
+                    <td>{{ livC.membre.adresseUser }}</td>
+                </tr>
+                <tr>
+                    <th>Liste des Cadeaux</th>
+                    <td>
+                        {% for cadeau in livC.listeCadeaux %}
+                            {{ cadeau.nomCad }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Ajouté à</th>
+                    <td>{{ livC.createdAt ? livC.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Livreur</th>
+                    <td>{{ livC.livreur.prenomUser }} {{ livC.livreur.nomUser }}</td>
+                </tr>
+                <tr>
+                    <th>Confirmé</th>
+                    <td>
+                        {% if livC.isConfirmed %}
+                            <span class="text-success">✔️</span>
+                        {% else %}
+                            <span class="text-danger">❌</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="{{ path('listeCadeaux') }}" class="btn btn-primary">retour à liste</a>
+
+        <a href="{{ path('deleteCadeaux', {'id': livC.id}) }}" class="btn btn-danger">supprimer</a>
+    </div>
+
+    
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'baseLivreur.html.twig' %}
+
+{% block title %}Livraisons Cadeaux{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Liste Livraisons Cadeaux</h1>
+
+        <table class="table">
+            <thead>
+                <tr style="font-size: 1.2em; font-weight: bold;">
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Cadeaux</th>
+                    <th>Livreur</th>
+                    <th>Confirmé</th>
+                    <th style="width: 10%;">Détails</th>
+                    <th style="width: 10%;">Modifier</th>
+                    <th style="width: 10%;">Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for livC in livraisonsC %}
+                <tr>
+                    <td>{{ livC.id }}</td>
+                    <td>{{ livC.membre.prenomUser }} {{ livC.membre.nomUser }}</td>
+                    <td>
+                        {% for cadeau in livC.listeCadeaux %}
+                            {{ cadeau.nomCad }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>{{ livC.livreur.prenomUser }} {{ livC.livreur.nomUser }}</td>
+                    <td>
+                        {% if livC.isConfirmed %}
+                            <span class="text-success">✔️</span>
+                        {% else %}
+                            <span class="text-danger">❌</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('affichCadeaux', {'id': livC.id}) }}" class="btn btn-info">détails</a>
+                    </td>
+                    <td>
+                        <a href="{{ path('modifierCadeaux', {'id': livC.id}) }}" class="btn btn-warning">modifier</a>
+                    </td>
+                    <td>
+                        <a href="{{ path('deleteCadeaux', {'id': livC.id}) }}" class="btn btn-dark">supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ path('ajouterCadeaux')}}" class="btn btn-danger">Ajouter Livraison Cadeaux</a>
+    </div>
+{% endblock %}

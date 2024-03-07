@@ -1,0 +1,41 @@
+{% extends 'baseLivreur.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-5">
+        <h1 class="mb-4">Livraisons Récents</h1>
+
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Adresse</th>
+                    <th scope="col">Nb. Produits</th>
+                    <th scope="col">Prix Total</th>
+                    <th scope="col">Ajouté à</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for liv in livraisons %}
+                    <tr>
+                        <td>{{ liv.commande.adresseCmd }}</td>
+                        <td>{{ liv.commande.panierNbProd }} produits</td>
+                        <td>{{ liv.commande.prixCmd }}</td>
+                        <td>{{ liv.createdAt|date('d-m-Y H:i:s') }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="map-container" class="d-flex justify-content-center">
+        <div id="map"></div>
+    </div>
+    
+
+{% endblock %}
+{% block javascripts %}
+{% block importmap %}{{ importmap('app') }}{% endblock %}
+<script src="{{ asset('js/map.js') }}"></script>
+{% endblock %}

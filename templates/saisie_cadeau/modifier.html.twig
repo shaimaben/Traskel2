@@ -1,0 +1,40 @@
+{% extends 'baseLivreur.html.twig' %}
+
+{% block title %}Modifier{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="mt-5">Modifier Livraison Cadeau</h1>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                <div class="form-group">
+                    {{ form_label(form.createdAt) }}
+                    {{ form_widget(form.createdAt, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.isConfirmed) }}
+                    {{ form_widget(form.isConfirmed) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.membre) }}
+                    {{ form_widget(form.membre, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.membre) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.listeCadeaux) }}
+                    {{ form_widget(form.listeCadeaux, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.listeCadeaux) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.livreur) }}
+                    {{ form_widget(form.livreur, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.livreur) }}
+                </div>
+                {{ form_end(form) }}
+                <a href="{{ path('listeCadeaux') }}" class="btn btn-secondary">Annuler</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

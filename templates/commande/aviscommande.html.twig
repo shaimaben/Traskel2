@@ -1,0 +1,18 @@
+{% block body %}
+    <div style="text-align: center;">
+        <h1 style="color: #333;">Commande Avis</h1>
+
+        <!-- Section pour donner un avis avec une échelle sur 10 -->
+        <div style="margin-top: 20px;">
+            <h2 style="color: #333;">Donner un avis</h2>
+            <p>Merci de donner votre avis sur cette commande sur une échelle de 1 à 10 :</p>
+            
+            <!-- Ajouter un formulaire d'avis avec une échelle sur 10 -->
+            <form>
+                <label for="avis">Votre avis :</label>
+                <input type="number" id="avis" name="avis" min="1" max="10" required>
+                <button type="submit">Soumettre</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

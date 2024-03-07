@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="untree_co-section product-section before-footer-section">
+       <h1 style="color: #09563c; margin-left: 20px;">Liste des Produits à vendre :</h1>
+
+        <div class="row">
+            {% for produit in produits %}
+                {% if produit.typeProd == 'Vente' %}
+                <div class="col-12 col-md-4 col-lg-3 mb-5">
+                    <div class="product-item">
+                        <a href="{{ path('app_produits_show', {'id': produit.id}) }}">
+                            <img src="{{ asset('uploads/' ~ produit.photoProd) }}" class="img-fluid" alt="Product Image" style="width:250px; height: 200px;">
+                            <h3 class="product-title">{{ produit.nomProd }}</h3>
+                            <strong class="product-price">{{ produit.prixProd }} DTN</strong>
+                        </a>
+                         <div class="product-buttons d-flex justify-content-center">
+                            <a href="{{ path('app_produits_edit', {'id': produit.id}) }}" class="btn btn-secondary">Modifier</a>
+                            <div style="width: 10px;"></div>
+                            {{ include('produits/_delete_form.html.twig', {'id': produit.id}) }}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% else %}
+                <div class="col">
+                    <p>Aucun produit à vendre trouvé</p>
+                </div>
+            {% endfor %}
+        </div>
+
+
+       
+    </div>
+{% endblock %}

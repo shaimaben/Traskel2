@@ -1,0 +1,34 @@
+{% extends 'gestionProd/shop1.html.twig' %}
+
+{% block content %}
+
+
+
+
+    <div class="untree_co-section product-section before-footer-section">
+        <div class="row">
+            {% for produit in pagination %}
+                {% if produit.typeProd == 'Vente' %}
+                    <div class="col-12 col-md-4 col-lg-3 mb-5">
+                        <a class="product-item" href="{{ path('app_produits_show', {'id': produit.id}) }}">
+                            <img src="{{ asset('uploads/' ~ produit.photoProd) }}" class="img-fluid" alt="Product Image" style="width:250px; height: 200px;">
+                            <h3 class="product-title">{{ produit.nomProd }}</h3>
+                            <strong class="product-price">{{ produit.prixProd }} DTN</strong>
+                            <span class="icon-cross">
+                                <img src="{{ asset('images/cross.svg') }}" class="img-fluid ">
+                            </span>
+                        </a>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="row justify-content-center">
+                    <div class="col text-center">
+                        <p>Aucun produit trouvé</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+          {# Afficher la pagination #}
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}

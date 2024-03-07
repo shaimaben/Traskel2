@@ -1,0 +1,121 @@
+{% extends 'gestionProd/baseback1.html.twig' %}
+
+{% block title %}Commande{% endblock %}
+
+{% block body %}
+    <h1>Commande</h1>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div id="right-table-container">
+    <br><br><br>
+    <table class="table"  id="right-table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ commande.id }}</td>
+            </tr>
+            <tr>
+                <th>Adresse_Cmd</th>
+                <td>{{ commande.adresseCmd }}</td>
+            </tr>
+            <tr>
+                <th>Statut_Cmd</th>
+                <td>{{ commande.statutCmd }}</td>
+            </tr>
+            <tr>
+                <th>Prix_Cmd</th>
+                <td>{{ commande.prixCmd }}</td>
+            </tr>
+            <tr>
+                <th>Delais_Cmd</th>
+                <td>{{ commande.delaisCmd }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_commande_index') }}">back to list</a><br>
+
+    <a href="{{ path('app_commande_edit', {'id': commande.id}) }}">edit</a><br>
+    <a href="{{ path('app_commande_imprimer', {'id': commande.id}) }}">Imprimer</a><br><br>
+
+    {{ include('commande/_delete_form.html.twig') }}
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        #right-table-container {
+            width: 70%; /* Adjust the width as needed */
+            padding: 100px;
+            background-color: #f4f4f4;
+        }
+
+        #right-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 100px;
+        }
+
+        #right-table th, #right-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #right-table th {
+            background-color: #007BFF;
+            color: #fff;
+        }
+         .btn {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+
+        .btn-info {
+            background-color: #5bc0de;
+            border-color: #46b8da;
+            color: #fff;
+        }
+
+        .btn-warning {
+            background-color: #f0ad4e;
+            border-color: #eea236;
+            color: #fff;
+        }
+
+        .btn-success {
+            background-color: #5cb85c;
+            border-color: #4cae4c;
+            color: #fff;
+        }
+
+        .btn-primary {
+            background-color: #007BFF;
+            border-color: #007BFF;
+            color: #fff;
+        }
+
+        .btn-primary:hover,
+        .btn-primary:active,
+        .btn-primary:focus {
+            background-color: #0056b3;
+            border-color: #004080;
+            color: #fff;
+        }
+    </style>
+{% endblock %}

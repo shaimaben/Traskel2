@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PanierRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PanierRepository::class)]
@@ -27,9 +28,43 @@ class Panier
     #[ORM\ManyToOne(inversedBy: 'idPanier')]
     private ?Livraison $livraison = null;
 
+    #[ORM\Column(type: Types::SIMPLE_ARRAY, nullable: true)]
+    private ?array $produits_id = null;
+    private $produits;
     public function __construct()
     {
+        $this->produits = new ArrayCollection();
         $this->idprod = new ArrayCollection();
+    }
+        /**
+     * @return Collection|Produit[]
+     */
+    public function getProduits(): Collection
+    {
+        return $this->produits ?? new ArrayCollection();
+    }
+/**
+ * @param Produit $produit
+ * @return $this
+ */
+public function addProduit(Produit $produit): self
+{
+    if ($this->produits === null) {
+        $this->produits = new ArrayCollection();
+    }
+
+    if (!$this->produits->contains($produit)) {
+        $this->produits[] = $produit;
+    }
+
+    return $this;
+}
+    /**
+     * @param ArrayCollection $produits
+     */
+    public function setProduits(ArrayCollection $produits): void
+    {
+        $this->produits = $produits;
     }
 
     public function getId(): ?int
@@ -53,13 +88,13 @@ class Panier
     {
         return $this->total_prix;
     }
-
-    public function setTotalPrix(float $total_prix): static
+    public function setTotalPrix(?float $total_prix): static
     {
         $this->total_prix = $total_prix;
-
+    
         return $this;
     }
+    
 
     /**
      * @return Collection<int, Produit>
@@ -101,5 +136,23 @@ class Panier
         $this->livraison = $livraison;
 
         return $this;
+    }
+
+    public function getProduitsId(): ?array
+    {
+        return $this->produits_id;
+    }
+
+    public function setProduitsId(?array $ProduitsId): static
+    {
+        $this->produits_id = $ProduitsId;
+
+        return $this;
+    }
+    public function deleteProduitFromPanier(Produit $produit): void
+    {
+        if ($this->produits !== null && $this->produits->contains($produit)) {
+            $this->produits->removeElement($produit);
+        }
     }
 }

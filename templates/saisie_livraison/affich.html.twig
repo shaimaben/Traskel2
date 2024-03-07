@@ -1,0 +1,55 @@
+{% extends 'baseLivreur.html.twig' %}
+
+{% block title %}Livraison{% endblock %}
+{% block stylesheets %}
+    <style>
+    th{
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+    </style>
+{% endblock %}
+{% block body %}
+    <h1>Livraison</h1>
+
+    <div class="container">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Membre</th>
+                    <td>enCours d'implementation</td>
+                </tr>
+                <tr>
+                    <th>Adresse</th>
+                    <td>{{livraison.commande.adresseCmd}}</td>
+                </tr>
+                <tr>
+                    <th>Prix Total</th>
+                    <td>{{livraison.commande.prixCmd}}</td>
+                </tr>
+                <tr>
+                    <th>Ajouté à</th>
+                    <td>{{ livraison.createdAt ? livraison.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Confirmé</th>
+                    <td>
+                        {% if livraison.isConfirmed %}
+                            <span class="text-success">✔️</span>
+                        {% else %}
+                            <span class="text-danger">❌</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 12%;"><a href="#" class="btn btn-dark">Voir Panier</a></th>
+                </tr>
+            </tbody>
+        </table>
+        <a href="{{ path('listeLivraisons') }}" class="btn btn-primary">retour à liste</a>
+
+        <a href="{{ path('deleteLivraison', {'id': livraison.id}) }}" class="btn btn-danger">supprimer</a>
+    </div>
+
+    
+{% endblock %}

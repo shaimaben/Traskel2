@@ -1,0 +1,74 @@
+ {% extends 'gestionProd/shop.html.twig' %}
+{%block hero%}
+<div class="hero">
+    <div class="container" >
+        <div class="row align-items-center" style="margin-bottom: 80px;">
+            <div class="col-lg-6">
+                <div class="intro-excerpt">
+                    <h1 class="text-nowrap">Achetez les meilleurs produits<br> recyclés</h1>
+                    <p>Traskel vous offre une sélection exceptionnelle de produits recyclés provenant du monde entier. Contribuez à l'économie circulaire tout en découvrant des trésors uniques.</p>
+                 
+                </div>
+            </div>
+            <div class="col-lg-6" >
+                <div class="d-flex justify-content-center">
+                    <img src="{{ asset('images/traskellogo.png') }}" class="img-fluid">
+                </div>
+            </div>
+        </div>
+        
+          <div class="scrollmenu d-flex justify-content-center">
+    <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
+        <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+            <li class="{{ app.request.get('_route') == 'app_produits_index' and not app.request.get('idCat') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ path('app_produits_index') }}">Tous</a>
+            </li>
+            {% for categorie in categories %}
+                <li class="{{ app.request.get('idCat') == categorie.id ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ path('app_produits_index', {'idCat': categorie.id}) }}">{{ categorie.getCategorieProd() }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+</div>
+<form action="{{ path('app_produits_index') }}" method="get" class="d-flex justify-content-center mt-3">
+    <input type="text" name="search" placeholder="Search" class="form-control">
+    <input type="hidden" name="idCat" value="{{ app.request.get('idCat') }}">
+    <button type="submit" class="btn btn-primary ml-2">Search</button>
+</form>
+    </div>
+</div>
+
+{%endblock%}
+{% block content %}
+    <div class="untree_co-section product-section before-footer-section">
+      
+        <div class="row">
+            {% for produit in pagination %}
+             {% if produit.typeProd == 'Vente' %}
+                <div class="col-12 col-md-4 col-lg-3 mb-5">
+                    <a class="product-item" href="{{ path('app_produits_show', {'id': produit.id}) }}">
+                       <img src="{{ asset('uploads/' ~ produit.photoProd) }}" class="img-fluid" alt="Product Image" style="width:250px; height: 200px;">
+
+                        <h3 class="product-title">{{ produit.nomProd }}</h3>
+                       <strong class="product-price">{{ produit.prixProd }} DTN</strong>
+
+                        <span class="icon-cross">
+                            <img src="{{ asset('images/cross.svg') }}" class="img-fluid ">
+                        </span>
+                    </a>
+                </div>
+                {% endif %}
+            {% else %}
+               <div class="row justify-content-center">
+    <div class="col text-center">
+        <p>Aucun produit trouvé</p>
+    </div>
+</div>
+            {% endfor %}
+        </div>
+  {# Afficher la pagination #}
+        {{ knp_pagination_render(pagination) }}
+        
+    </div>
+{% endblock %} 

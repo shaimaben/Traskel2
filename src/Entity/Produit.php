@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Entity;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\ProduitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\HasLifecycleCallbacks()]
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
 class Produit
@@ -14,18 +17,28 @@ class Produit
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Vous devez entrer le nom de votre produit.")]
+    #[Assert\Length(min:3, minMessage:"Le nom de votre produit doit contenir au moins {{ limit }} caractères.",max:255,maxMessage:"Le nom de votre produit ne peut pas dépasser {{ limit }} caractères."
+    )]
     private ?string $nomProd = null;
 
     #[ORM\Column(length: 10000, nullable: true)]
+    #[Assert\Length(max:255, maxMessage:"La description de votre produit ne peut pas dépasser {{ limit }} caractères.",)]
     private ?string $descrpProd = null;
 
     #[ORM\Column(length: 255)]
+    
     private ?string $photoProd = null;
+    
+    
 
     #[ORM\Column]
-    private ?bool $typeProd = null;
+    #[Assert\NotBlank(message:"Vous devez entrer le type de votre produit.")]
+    private ?string $typeProd = null;
 
     #[ORM\Column]
+    #[Assert\NotNull(message:"Vous devez entrer le prix de votre produit.")]
+    #[Assert\Type(type:"float", message:"Le champ prixProd doit être de type float.")]
     private ?float $prixProd = null;
 
     #[ORM\ManyToOne(inversedBy: 'produits')]
@@ -42,6 +55,11 @@ class Produit
         return $this->id;
     }
 
+    private $produits;
+public function __construct(){
+    $this->produits = new ArrayCollection();
+}
+    
     public function getNomProd(): ?string
     {
         return $this->nomProd;
@@ -78,12 +96,12 @@ class Produit
         return $this;
     }
 
-    public function isTypeProd(): ?bool
+    public function getTypeProd(): ?string
     {
         return $this->typeProd;
     }
 
-    public function setTypeProd(bool $typeProd): static
+    public function setTypeProd(string $typeProd): static
     {
         $this->typeProd = $typeProd;
 
@@ -137,4 +155,24 @@ class Produit
 
         return $this;
     }
+ /*
+    #[ORM\Column(type:"datetime")]
+  
+    private ?\DateTimeInterface $createdAt = null;
+    
+    /**
+     * @ORM\PrePersist
+     
+
+    public function setCreatedAtValue(): void
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+*/
 }
