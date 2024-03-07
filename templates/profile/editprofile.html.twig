@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="text-center">Modification du profil</h1>
+                <form class="mx-auto" style="max-width: 400px;" method="post" action="{{ path('User.edit') }}" novalidate>
+                    {{ form_start(form) }}
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ form_label(form.nom_user) }}
+                                {{ form_widget(form.nom_user) }}
+                                {{ form_errors(form.nom_user) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ form_label(form.prenom_user) }}
+                                {{ form_widget(form.prenom_user) }}
+                                {{ form_errors(form.prenom_user) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ form_label(form.adresse_user) }}
+                                {{ form_widget(form.adresse_user) }}
+                                {{ form_errors(form.adresse_user) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ form_label(form.tel_user) }}
+                                {{ form_widget(form.tel_user) }}
+                                {{ form_errors(form.tel_user) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ form_label(form.email) }}
+                                {{ form_widget(form.email) }}
+                                {{ form_errors(form.email) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ form_label(form.agreeTerms) }}
+                                {{ form_widget(form.agreeTerms) }}
+                                {{ form_errors(form.agreeTerms) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Modifier le profil</button>
+                    </div>
+
+                    {{ form_end(form) }}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

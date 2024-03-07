@@ -1,9 +1,11 @@
 {% extends 'security/baseback1.html.twig' %}
 
-{% block title %}User{% endblock %}
 
 {% block body %}
-    <h1 class="text-center">User</h1>
+<br></b> <b></b> <b></b> <b></b>
+<div style="text-align: center; margin-top: 50px; margin-left: 200px ">
+
+    <h1 class="text-center">Utilisateur </h1>
 
     <div class="container mt-4">
         <table class="table table-sm mx-auto">
@@ -43,6 +45,10 @@
                 <tr class="mb-2">
                     <th>IsVerified</th>
                     <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
+                </tr>
+                <tr class="mb-2">
+                    <th>IsBanned</th>
+                    <td>{{ user.isBanned ? 'Yes' : 'No' }}</td>
                 </tr>
             </tbody>
         </table>

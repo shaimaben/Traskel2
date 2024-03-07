@@ -1,13 +1,16 @@
+
+
 {% extends 'security/baseback1.html.twig' %}
 
-{% block title %}Edit User{% endblock %}
 
-{% block header %}
+{% block body %}
     <div class="container mt-4">
         <div class="card">
-            <div class="card-header text-center bg-primary text-white">
-                <h5 class="mb-0">Modifier compte utilisateur </h5>
-            </div>
+            <br></b> <b></b> <b></b> <b></b>
+<div style="text-align: center; margin-top: 50px; margin-left: 200px ">
+
+                <h5> Modifier compte utilisateur </h5>
+            
             <div class="card-body">
                 <!-- User Edit Form -->
                 <form class="mx-auto" style="max-width: 400px;" method="post" action="{{ path('app_user_edit', {'id': user.id}) }}" novalidate>

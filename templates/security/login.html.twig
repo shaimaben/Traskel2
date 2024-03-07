@@ -365,6 +365,15 @@ input {
         window.location.href = '{{ path("app_register") }}';
     });
 </script>
+<script>
+    //cette partie c pour désactiver le CS de Html par defaut //
+        document.addEventListener('DOMContentLoaded', function() {
+            var forms = document.querySelectorAll('form');
+            forms.forEach(function(form) {
+                form.setAttribute('novalidate', 'novalidate');
+            });
+        });
+    </script>
 
 </body>
 {% endblock %}
